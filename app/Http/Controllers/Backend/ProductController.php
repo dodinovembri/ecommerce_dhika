@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductModel;
 use App\Models\ProductCategoryModel;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -24,6 +25,8 @@ class ProductController extends Controller
     public $edit = "admin/product/edit";
     public $update = "admin/product/update";
     public $destroy = "admin/product/destroy";
+
+    public $file_storage = "public/img/product";
 
     public function __construct()
     {
@@ -59,7 +62,7 @@ class ProductController extends Controller
         $data['text_add'] = "Add New";
         $data['table_data'] = ProductModel::all();
 
-        return view('admin.single_page.index', $data);
+        return view('backend.single_page.index', $data);
     }
 
     /**
@@ -70,8 +73,11 @@ class ProductController extends Controller
     public function create()
     {
         // define product category
-        $data['dropdown'] = ProductCategoryModel::where('status', 1)->get();
-        $data['dropdown_option'] = "product_category_name";
+        $dropdown[0] = ProductCategoryModel::where('status', 1)->get();
+        $dropdown_option[0] = "product_category_name";
+
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option;
 
         // for breadcrumb
         $data['breadcrumb'] = array(
@@ -100,7 +106,7 @@ class ProductController extends Controller
         $data['field_first'] = "id";
         $data['field_break'] = "created_at";        
 
-        return view('admin.single_page.create', $data);
+        return view('backend.single_page.create', $data);
     }
 
     /**
@@ -123,13 +129,26 @@ class ProductController extends Controller
                 break;
             }                                            
             $arr_field[] = $value->Field;
+            $arr_field_type[] = $value->Type;
             $count = count($arr_field); 
         }
 
         $insert = new ProductModel();
         for ($i=0; $i < $count; $i++) { 
-            $field_db = $arr_field[$i];            
-            $insert->$field_db = $request->$field_db;            
+            $text_type = $arr_field_type[$i];
+            $text_check = substr($text_type,0,3);
+            if ($text_check == "cha") {
+                if (!empty($request->file( $arr_field[$i]))) {
+                    $file                       = $request->file($arr_field[$i]);
+                    $fileName3                  = uniqid() . '.'. $file->getClientOriginalExtension();
+                    $path = Storage::putFileAs($this->file_storage, $request->file($arr_field[$i]), $fileName3);
+                    $field_db = $arr_field[$i]; 
+                    $insert->$field_db = $fileName3;
+                }                
+            }else{
+                $field_db = $arr_field[$i];            
+                $insert->$field_db = $request->$field_db;            
+            }
         }        
         $insert->save();
 
@@ -191,7 +210,7 @@ class ProductController extends Controller
 
         $data['table_content'] = ProductModel::find($id);
 
-        return view('admin.single_page.edit', $data);
+        return view('backend.single_page.edit', $data);
     }
 
     /**
@@ -215,13 +234,26 @@ class ProductController extends Controller
                 break;
             }                                            
             $arr_field[] = $value->Field;
+            $arr_field_type[] = $value->Type;
             $count = count($arr_field); 
         }
 
         $update = ProductModel::find($id);
         for ($i=0; $i < $count; $i++) { 
-            $field_db = $arr_field[$i];            
-            $update->$field_db = $request->$field_db;            
+            $text_type = $arr_field_type[$i];
+            $text_check = substr($text_type,0,3);
+            if ($text_check == "cha") {
+                if (!empty($request->file( $arr_field[$i]))) {
+                    $file                       = $request->file($arr_field[$i]);
+                    $fileName3                  = uniqid() . '.'. $file->getClientOriginalExtension();
+                    $path = Storage::putFileAs($this->file_storage, $request->file($arr_field[$i]), $fileName3);
+                    $field_db = $arr_field[$i]; 
+                    $update->$field_db = $fileName3;
+                }                
+            }else{
+                $field_db = $arr_field[$i];            
+                $update->$field_db = $request->$field_db;            
+            }            
         }        
         $update->update();
 

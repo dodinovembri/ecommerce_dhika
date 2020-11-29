@@ -5,25 +5,27 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\PaymentMethodModel;
+use App\Models\ProductDealModel;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ProductCategoryModel;
+use App\Models\ProductModel;
 
-class PaymentMethodController extends Controller
+class ProductDealController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $table = "payment_method";
+    public $table = "product_deal";
 
-    public $index = "admin/payment_method/index";
-    public $create = "admin/payment_method/create";
-    public $store = "admin/payment_method/store";
-    public $show = "admin/payment_method/show";
-    public $edit = "admin/payment_method/edit";
-    public $update = "admin/payment_method/update";
-    public $destroy = "admin/payment_method/destroy";
+    public $index = "admin/product_deal/index";
+    public $create = "admin/product_deal/create";
+    public $store = "admin/product_deal/store";
+    public $show = "admin/product_deal/show";
+    public $edit = "admin/product_deal/edit";
+    public $update = "admin/product_deal/update";
+    public $destroy = "admin/product_deal/destroy";
 
     public $file_storage = "public/img/product";
 
@@ -41,13 +43,13 @@ class PaymentMethodController extends Controller
                 "link"=>"admin", 
                 "is_active"=>"inactive"
             ),
-            "payment_method"=>array(
-                "text"=>"Product Method", 
+            "product_deal"=>array(
+                "text"=>"Product Deal", 
                 "link"=>"", 
                 "is_active"=>"active"
             )
         );
-        $data['title'] = "Product Method";
+        $data['title'] = "Product Deal";
 
         // for route link
         $data['index'] = $this->index;
@@ -60,7 +62,7 @@ class PaymentMethodController extends Controller
         $data['table_field'] = DB::select("DESCRIBE $table");
         $data['field_break'] = "created_at";
         $data['text_add'] = "Add New";
-        $data['table_data'] = PaymentMethodModel::all();
+        $data['table_data'] = ProductDealModel::all();
 
         return view('backend.single_page.index', $data);
     }
@@ -72,6 +74,17 @@ class PaymentMethodController extends Controller
      */
     public function create()
     {
+        // define product category
+        $dropdown[0] = ProductCategoryModel::where('status', 1)->get();
+        $dropdown_option[0] = "product_category_name";
+
+        // define product
+        $dropdown[1] = ProductModel::where('status', 1)->get();
+        $dropdown_option[1] = "product_name";
+
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option;
+
         // for breadcrumb
         $data['breadcrumb'] = array(
             "home"=>array(
@@ -79,18 +92,18 @@ class PaymentMethodController extends Controller
                 "link"=>"admin", 
                 "is_active"=>"inactive"
             ),
-            "payment_method"=>array(
-                "text"=>"Product Method", 
+            "product_deal"=>array(
+                "text"=>"Product Deal", 
                 "link"=>$this->index, 
                 "is_active"=>"inactive"
             ),
-            "create_payment_method"=>array(
-                "text"=>"Create Product Method", 
+            "create_product_deal"=>array(
+                "text"=>"Create Product Deal", 
                 "link"=>"#", 
                 "is_active"=>"active"
             )
         );
-        $data['title'] = "Create Product Method";
+        $data['title'] = "Create Product Deal";
 
         $data['store'] = $this->store;
         $data['index'] = $this->index;
@@ -126,7 +139,7 @@ class PaymentMethodController extends Controller
             $count = count($arr_field); 
         }
 
-        $insert = new PaymentMethodModel();
+        $insert = new ProductDealModel();
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type,0,3);
@@ -141,7 +154,7 @@ class PaymentMethodController extends Controller
             }else{
                 $field_db = $arr_field[$i];            
                 $insert->$field_db = $request->$field_db;            
-            }            
+            }           
         }        
         $insert->save();
 
@@ -176,17 +189,17 @@ class PaymentMethodController extends Controller
                 "is_active"=>"inactive"
             ),
             "general_information"=>array(
-                "text"=>"Product Method", 
+                "text"=>"Product Deal", 
                 "link"=>$this->index, 
                 "is_active"=>"inactive"
             ),
             "edit_general_information"=>array(
-                "text"=>"Edit Product Method", 
+                "text"=>"Edit Product Deal", 
                 "link"=>"", 
                 "is_active"=>"active"
             )            
         );
-        $data['title'] = "Edit Product Method";
+        $data['title'] = "Edit Product Deal";
         $data['update'] = $this->update;
         $data['index'] = $this->index;
 
@@ -197,7 +210,7 @@ class PaymentMethodController extends Controller
         $data['field_break'] = "created_at";
         $data['field_'] = "created_at";
 
-        $data['table_content'] = PaymentMethodModel::find($id);
+        $data['table_content'] = ProductDealModel::find($id);
 
         return view('backend.single_page.edit', $data);
     }
@@ -227,7 +240,7 @@ class PaymentMethodController extends Controller
             $count = count($arr_field); 
         }
 
-        $update = PaymentMethodModel::find($id);
+        $update = ProductDealModel::find($id);
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type,0,3);
@@ -242,7 +255,7 @@ class PaymentMethodController extends Controller
             }else{
                 $field_db = $arr_field[$i];            
                 $update->$field_db = $request->$field_db;            
-            }         
+            }             
         }        
         $update->update();
 
@@ -258,7 +271,7 @@ class PaymentMethodController extends Controller
      */
     public function destroy($id)
     {
-        $findtodelete = PaymentMethodModel::find($id);
+        $findtodelete = ProductDealModel::find($id);
         $findtodelete->delete();
 
         $result = preg_replace("/[^a-zA-Z]/", " ", $this->table); 

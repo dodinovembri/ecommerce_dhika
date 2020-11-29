@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductCategoryModel;
+use Illuminate\Support\Facades\Storage;
 
 class ProductCategoryController extends Controller
 {
@@ -23,6 +24,8 @@ class ProductCategoryController extends Controller
     public $edit = "admin/product_category/edit";
     public $update = "admin/product_category/update";
     public $destroy = "admin/product_category/destroy";
+
+    public $file_storage = "public/img/product";
 
     public function __construct()
     {
@@ -59,7 +62,7 @@ class ProductCategoryController extends Controller
         $data['text_add'] = "Add New";
         $data['table_data'] = ProductCategoryModel::all();
 
-        return view('admin.single_page.index', $data);
+        return view('backend.single_page.index', $data);
     }
 
     /**
@@ -96,7 +99,7 @@ class ProductCategoryController extends Controller
         $data['field_first'] = "id";
         $data['field_break'] = "created_at";        
 
-        return view('admin.single_page.create', $data);
+        return view('backend.single_page.create', $data);
     }
 
     /**
@@ -119,13 +122,26 @@ class ProductCategoryController extends Controller
                 break;
             }                                            
             $arr_field[] = $value->Field;
+            $arr_field_type[] = $value->Type;
             $count = count($arr_field); 
         }
 
         $insert = new ProductCategoryModel();
         for ($i=0; $i < $count; $i++) { 
-            $field_db = $arr_field[$i];            
-            $insert->$field_db = $request->$field_db;            
+            $text_type = $arr_field_type[$i];
+            $text_check = substr($text_type,0,3);
+            if ($text_check == "cha") {
+                if (!empty($request->file( $arr_field[$i]))) {
+                    $file                       = $request->file($arr_field[$i]);
+                    $fileName3                  = uniqid() . '.'. $file->getClientOriginalExtension();
+                    $path = Storage::putFileAs($this->file_storage, $request->file($arr_field[$i]), $fileName3);
+                    $field_db = $arr_field[$i]; 
+                    $insert->$field_db = $fileName3;
+                }                
+            }else{
+                $field_db = $arr_field[$i];            
+                $insert->$field_db = $request->$field_db;            
+            }            
         }        
         $insert->save();
 
@@ -183,7 +199,7 @@ class ProductCategoryController extends Controller
 
         $data['table_content'] = ProductCategoryModel::find($id);
 
-        return view('admin.single_page.edit', $data);
+        return view('backend.single_page.edit', $data);
     }
 
     /**
@@ -207,13 +223,26 @@ class ProductCategoryController extends Controller
                 break;
             }                                            
             $arr_field[] = $value->Field;
+            $arr_field_type[] = $value->Type;
             $count = count($arr_field); 
         }
 
         $update = ProductCategoryModel::find($id);
         for ($i=0; $i < $count; $i++) { 
-            $field_db = $arr_field[$i];            
-            $update->$field_db = $request->$field_db;            
+            $text_type = $arr_field_type[$i];
+            $text_check = substr($text_type,0,3);
+            if ($text_check == "cha") {
+                if (!empty($request->file( $arr_field[$i]))) {
+                    $file                       = $request->file($arr_field[$i]);
+                    $fileName3                  = uniqid() . '.'. $file->getClientOriginalExtension();
+                    $path = Storage::putFileAs($this->file_storage, $request->file($arr_field[$i]), $fileName3);
+                    $field_db = $arr_field[$i]; 
+                    $update->$field_db = $fileName3;
+                }                
+            }else{
+                $field_db = $arr_field[$i];            
+                $update->$field_db = $request->$field_db;            
+            }             
         }        
         $update->update();
 

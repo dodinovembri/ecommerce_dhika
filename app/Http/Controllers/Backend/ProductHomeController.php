@@ -5,27 +5,27 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\PaymentMethodModel;
+use App\Models\ProductHomeModel;
 use Illuminate\Support\Facades\Storage;
 
-class PaymentMethodController extends Controller
+class ProductHomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $table = "payment_method";
+    public $table = "product_home";
 
-    public $index = "admin/payment_method/index";
-    public $create = "admin/payment_method/create";
-    public $store = "admin/payment_method/store";
-    public $show = "admin/payment_method/show";
-    public $edit = "admin/payment_method/edit";
-    public $update = "admin/payment_method/update";
-    public $destroy = "admin/payment_method/destroy";
+    public $index = "admin/product_home/index";
+    public $create = "admin/product_home/create";
+    public $store = "admin/product_home/store";
+    public $show = "admin/product_home/show";
+    public $edit = "admin/product_home/edit";
+    public $update = "admin/product_home/update";
+    public $destroy = "admin/product_home/destroy";
 
-    public $file_storage = "public/img/product";
+    public $file_storage = "public/img/product_home";
 
     public function __construct()
     {
@@ -41,13 +41,13 @@ class PaymentMethodController extends Controller
                 "link"=>"admin", 
                 "is_active"=>"inactive"
             ),
-            "payment_method"=>array(
-                "text"=>"Product Method", 
+            "product_home"=>array(
+                "text"=>"Product Home", 
                 "link"=>"", 
                 "is_active"=>"active"
             )
         );
-        $data['title'] = "Product Method";
+        $data['title'] = "Product Home";
 
         // for route link
         $data['index'] = $this->index;
@@ -60,7 +60,7 @@ class PaymentMethodController extends Controller
         $data['table_field'] = DB::select("DESCRIBE $table");
         $data['field_break'] = "created_at";
         $data['text_add'] = "Add New";
-        $data['table_data'] = PaymentMethodModel::all();
+        $data['table_data'] = ProductHomeModel::all();
 
         return view('backend.single_page.index', $data);
     }
@@ -79,18 +79,18 @@ class PaymentMethodController extends Controller
                 "link"=>"admin", 
                 "is_active"=>"inactive"
             ),
-            "payment_method"=>array(
-                "text"=>"Product Method", 
+            "product_home"=>array(
+                "text"=>"Product Home", 
                 "link"=>$this->index, 
                 "is_active"=>"inactive"
             ),
-            "create_payment_method"=>array(
-                "text"=>"Create Product Method", 
+            "create_product_home"=>array(
+                "text"=>"Create Product Home", 
                 "link"=>"#", 
                 "is_active"=>"active"
             )
         );
-        $data['title'] = "Create Product Method";
+        $data['title'] = "Create Product Home";
 
         $data['store'] = $this->store;
         $data['index'] = $this->index;
@@ -126,7 +126,7 @@ class PaymentMethodController extends Controller
             $count = count($arr_field); 
         }
 
-        $insert = new PaymentMethodModel();
+        $insert = new ProductHomeModel();
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type,0,3);
@@ -141,7 +141,7 @@ class PaymentMethodController extends Controller
             }else{
                 $field_db = $arr_field[$i];            
                 $insert->$field_db = $request->$field_db;            
-            }            
+            }         
         }        
         $insert->save();
 
@@ -176,17 +176,17 @@ class PaymentMethodController extends Controller
                 "is_active"=>"inactive"
             ),
             "general_information"=>array(
-                "text"=>"Product Method", 
+                "text"=>"Product Home", 
                 "link"=>$this->index, 
                 "is_active"=>"inactive"
             ),
             "edit_general_information"=>array(
-                "text"=>"Edit Product Method", 
+                "text"=>"Edit Product Home", 
                 "link"=>"", 
                 "is_active"=>"active"
             )            
         );
-        $data['title'] = "Edit Product Method";
+        $data['title'] = "Edit Product Home";
         $data['update'] = $this->update;
         $data['index'] = $this->index;
 
@@ -197,7 +197,7 @@ class PaymentMethodController extends Controller
         $data['field_break'] = "created_at";
         $data['field_'] = "created_at";
 
-        $data['table_content'] = PaymentMethodModel::find($id);
+        $data['table_content'] = ProductHomeModel::find($id);
 
         return view('backend.single_page.edit', $data);
     }
@@ -227,7 +227,7 @@ class PaymentMethodController extends Controller
             $count = count($arr_field); 
         }
 
-        $update = PaymentMethodModel::find($id);
+        $update = ProductHomeModel::find($id);
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type,0,3);
@@ -242,7 +242,7 @@ class PaymentMethodController extends Controller
             }else{
                 $field_db = $arr_field[$i];            
                 $update->$field_db = $request->$field_db;            
-            }         
+            }            
         }        
         $update->update();
 
@@ -258,7 +258,7 @@ class PaymentMethodController extends Controller
      */
     public function destroy($id)
     {
-        $findtodelete = PaymentMethodModel::find($id);
+        $findtodelete = ProductHomeModel::find($id);
         $findtodelete->delete();
 
         $result = preg_replace("/[^a-zA-Z]/", " ", $this->table); 

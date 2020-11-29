@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -13,6 +14,8 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public $file_storage = "public/img/product";
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,7 +23,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard.index');
+        return view('backend.dashboard.index');
     }
 
     /**

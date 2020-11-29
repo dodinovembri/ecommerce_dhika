@@ -12,6 +12,7 @@
     
     <!-- CSS 
         ========================= -->
+        <script src="{{ asset('js/rupiah.js') }}"></script>
         <!--bootstrap min css-->
         <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
         <!--owl carousel min css-->

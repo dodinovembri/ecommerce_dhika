@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CompanyModel extends Model
+class SocialMediaModel extends Model
 {
-    public $table ='company';
+    public $table ='social_media';
     public $guarded ='[]';
 }

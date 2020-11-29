@@ -1,50 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<!-- Mirrored from mannatthemes.com/dastone/default/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Nov 2020 10:07:50 GMT -->
+<head>
+        <meta charset="utf-8" />
+        <title>Dastone - Admin & Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- Meta -->
-    <meta name="description" content="Responsive Bootstrap 4 Dashboard and Admin Template">
-    <meta name="author" content="ThemePixels">
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{{ asset('backend/default/assets/images/favicon.ico') }}">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+        <!-- App css -->
+        <link href="{{ asset('backend/default/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('backend/default/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('backend/default/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <title>Accounting System</title>
+    </head>
 
-    <!-- vendor css -->
-    <link href="{{ asset('lib/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+    <body class="account-body accountbg">
 
-    <!-- template css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/cassie.css') }}">
+      @yield('content')
 
-  </head>
-  <body>
-            
-    @yield('content')
+        <!-- jQuery  -->
+        <script src="{{ asset('backend/default/assets/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('backend/default/assets/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('backend/default/assets/js/waves.js') }}"></script>
+        <script src="{{ asset('backend/default/assets/js/feather.min.js') }}"></script>
+        <script src="{{ asset('backend/default/assets/js/simplebar.min.js') }}"></script>
 
-    <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('lib/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('lib/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+        
+    </body>
 
-    <script>
-      $(function(){
 
-        'use strict'
-
-        feather.replace();
-
-        new PerfectScrollbar('.signin-sidebar', {
-          suppressScrollX: true
-        });
-
-      })
-    </script>
-    <script src="{{ asset('assets/js/svg-inline.js') }}"></script>
-  </body>
+<!-- Mirrored from mannatthemes.com/dastone/default/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Nov 2020 10:07:50 GMT -->
 </html>

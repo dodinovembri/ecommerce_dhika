@@ -21,29 +21,219 @@ Auth::routes([
 ]);
 
 Route::get('/', 'Frontend\FrontendController@index')->name('home');
+Route::get('/frontend', 'Frontend\FrontendController@index')->name('home');
 Route::get('/admin', 'Backend\DashboardController@index')->name('dashboard');
+Route::get('/dashboard', 'Backend\DashboardController@index')->name('dashboard');
 
 Route::name('admin.')->group(function () {
-	Route::name('profile.')->group(function () {
-		Route::get('admin/profile/index', 'Admin\ProfileController@index')->name('index');
-		Route::get('admin/profile/create', 'Admin\ProfileController@create')->name('create');
-		Route::post('admin/profile/store', 'Admin\ProfileController@store')->name('store');
-		Route::get('admin/profile/show/{id}', 'Admin\ProfileController@show')->name('show');
-		Route::get('admin/profile/edit/{id}', 'Admin\ProfileController@edit')->name('edit');
-		Route::post('admin/profile/update/{id}', 'Admin\ProfileController@update')->name('update');
-		Route::get('admin/profile/destroy/{id}', 'Admin\ProfileController@destroy')->name('destroy');
-	});						
+	Route::name('about_us.')->group(function () {
+		Route::get('admin/about_us/index', 'Backend\AboutUsController@index')->name('index');
+		Route::get('admin/about_us/create', 'Backend\AboutUsController@create')->name('create');
+		Route::post('admin/about_us/store', 'Backend\AboutUsController@store')->name('store');
+		Route::get('admin/about_us/show/{id}', 'Backend\AboutUsController@show')->name('show');
+		Route::get('admin/about_us/edit/{id}', 'Backend\AboutUsController@edit')->name('edit');
+		Route::post('admin/about_us/update/{id}', 'Backend\AboutUsController@update')->name('update');
+		Route::get('admin/about_us/destroy/{id}', 'Backend\AboutUsController@destroy')->name('destroy');
+	});	
+	Route::name('advantage.')->group(function () {
+		Route::get('admin/advantage/index', 'Backend\AdvantageController@index')->name('index');
+		Route::get('admin/advantage/create', 'Backend\AdvantageController@create')->name('create');
+		Route::post('admin/advantage/store', 'Backend\AdvantageController@store')->name('store');
+		Route::get('admin/advantage/show/{id}', 'Backend\AdvantageController@show')->name('show');
+		Route::get('admin/advantage/edit/{id}', 'Backend\AdvantageController@edit')->name('edit');
+		Route::post('admin/advantage/update/{id}', 'Backend\AdvantageController@update')->name('update');
+		Route::get('admin/advantage/destroy/{id}', 'Backend\AdvantageController@destroy')->name('destroy');
+	});		
+	Route::name('blog.')->group(function () {
+		Route::get('admin/blog/index', 'Backend\BlogController@index')->name('index');
+		Route::get('admin/blog/create', 'Backend\BlogController@create')->name('create');
+		Route::post('admin/blog/store', 'Backend\BlogController@store')->name('store');
+		Route::get('admin/blog/show/{id}', 'Backend\BlogController@show')->name('show');
+		Route::get('admin/blog/edit/{id}', 'Backend\BlogController@edit')->name('edit');
+		Route::post('admin/blog/update/{id}', 'Backend\BlogController@update')->name('update');
+		Route::get('admin/blog/destroy/{id}', 'Backend\BlogController@destroy')->name('destroy');
+	});	
+	Route::name('cart.')->group(function () {
+		Route::get('admin/cart/index', 'Backend\CartController@index')->name('index');
+		Route::get('admin/cart/create', 'Backend\CartController@create')->name('create');
+		Route::post('admin/cart/store', 'Backend\CartController@store')->name('store');
+		Route::get('admin/cart/show/{id}', 'Backend\CartController@show')->name('show');
+		Route::get('admin/cart/edit/{id}', 'Backend\CartController@edit')->name('edit');
+		Route::post('admin/cart/update/{id}', 'Backend\CartController@update')->name('update');
+		Route::get('admin/cart/destroy/{id}', 'Backend\CartController@destroy')->name('destroy');
+	});
+	Route::name('contact_us.')->group(function () {
+		Route::get('admin/contact_us/index', 'Backend\ContactUsController@index')->name('index');
+		Route::get('admin/contact_us/create', 'Backend\ContactUsController@create')->name('create');
+		Route::post('admin/contact_us/store', 'Backend\ContactUsController@store')->name('store');
+		Route::get('admin/contact_us/show/{id}', 'Backend\ContactUsController@show')->name('show');
+		Route::get('admin/contact_us/edit/{id}', 'Backend\ContactUsController@edit')->name('edit');
+		Route::post('admin/contact_us/update/{id}', 'Backend\ContactUsController@update')->name('update');
+		Route::get('admin/contact_us/destroy/{id}', 'Backend\ContactUsController@destroy')->name('destroy');
+	});	
+	Route::name('currency.')->group(function () {
+		Route::get('admin/currency/index', 'Backend\CurrencyController@index')->name('index');
+		Route::get('admin/currency/create', 'Backend\CurrencyController@create')->name('create');
+		Route::post('admin/currency/store', 'Backend\CurrencyController@store')->name('store');
+		Route::get('admin/currency/show/{id}', 'Backend\CurrencyController@show')->name('show');
+		Route::get('admin/currency/edit/{id}', 'Backend\CurrencyController@edit')->name('edit');
+		Route::post('admin/currency/update/{id}', 'Backend\CurrencyController@update')->name('update');
+		Route::get('admin/currency/destroy/{id}', 'Backend\CurrencyController@destroy')->name('destroy');
+	});	
+	Route::name('languange.')->group(function () {
+		Route::get('admin/languange/index', 'Backend\LanguangeController@index')->name('index');
+		Route::get('admin/languange/create', 'Backend\LanguangeController@create')->name('create');
+		Route::post('admin/languange/store', 'Backend\LanguangeController@store')->name('store');
+		Route::get('admin/languange/show/{id}', 'Backend\LanguangeController@show')->name('show');
+		Route::get('admin/languange/edit/{id}', 'Backend\LanguangeController@edit')->name('edit');
+		Route::post('admin/languange/update/{id}', 'Backend\LanguangeController@update')->name('update');
+		Route::get('admin/languange/destroy/{id}', 'Backend\LanguangeController@destroy')->name('destroy');
+	});	
+	Route::name('social_media.')->group(function () {
+		Route::get('admin/social_media/index', 'Backend\SocialMediaController@index')->name('index');
+		Route::get('admin/social_media/create', 'Backend\SocialMediaController@create')->name('create');
+		Route::post('admin/social_media/store', 'Backend\SocialMediaController@store')->name('store');
+		Route::get('admin/social_media/show/{id}', 'Backend\SocialMediaController@show')->name('show');
+		Route::get('admin/social_media/edit/{id}', 'Backend\SocialMediaController@edit')->name('edit');
+		Route::post('admin/social_media/update/{id}', 'Backend\SocialMediaController@update')->name('update');
+		Route::get('admin/social_media/destroy/{id}', 'Backend\SocialMediaController@destroy')->name('destroy');
+	});		
+	Route::name('partner.')->group(function () {
+		Route::get('admin/partner/index', 'Backend\PartnerController@index')->name('index');
+		Route::get('admin/partner/create', 'Backend\PartnerController@create')->name('create');
+		Route::post('admin/partner/store', 'Backend\PartnerController@store')->name('store');
+		Route::get('admin/partner/show/{id}', 'Backend\PartnerController@show')->name('show');
+		Route::get('admin/partner/edit/{id}', 'Backend\PartnerController@edit')->name('edit');
+		Route::post('admin/partner/update/{id}', 'Backend\PartnerController@update')->name('update');
+		Route::get('admin/partner/destroy/{id}', 'Backend\PartnerController@destroy')->name('destroy');
+	});	
+	Route::name('user.')->group(function () {
+		Route::get('admin/user/index', 'Backend\UserController@index')->name('index');
+		Route::get('admin/user/create', 'Backend\UserController@create')->name('create');
+		Route::post('admin/user/store', 'Backend\UserController@store')->name('store');
+		Route::get('admin/user/show/{id}', 'Backend\UserController@show')->name('show');
+		Route::get('admin/user/edit/{id}', 'Backend\UserController@edit')->name('edit');
+		Route::post('admin/user/update/{id}', 'Backend\UserController@update')->name('update');
+		Route::get('admin/user/destroy/{id}', 'Backend\UserController@destroy')->name('destroy');
+	});
+	Route::name('payment_method.')->group(function () {
+		Route::get('admin/payment_method/index', 'Backend\PaymentMethodController@index')->name('index');
+		Route::get('admin/payment_method/create', 'Backend\PaymentMethodController@create')->name('create');
+		Route::post('admin/payment_method/store', 'Backend\PaymentMethodController@store')->name('store');
+		Route::get('admin/payment_method/show/{id}', 'Backend\PaymentMethodController@show')->name('show');
+		Route::get('admin/payment_method/edit/{id}', 'Backend\PaymentMethodController@edit')->name('edit');
+		Route::post('admin/payment_method/update/{id}', 'Backend\PaymentMethodController@update')->name('update');
+		Route::get('admin/payment_method/destroy/{id}', 'Backend\PaymentMethodController@destroy')->name('destroy');
+	});		
+	Route::name('product_best.')->group(function () {
+		Route::get('admin/product_best/index', 'Backend\ProductBestController@index')->name('index');
+		Route::get('admin/product_best/create', 'Backend\ProductBestController@create')->name('create');
+		Route::post('admin/product_best/store', 'Backend\ProductBestController@store')->name('store');
+		Route::get('admin/product_best/show/{id}', 'Backend\ProductBestController@show')->name('show');
+		Route::get('admin/product_best/edit/{id}', 'Backend\ProductBestController@edit')->name('edit');
+		Route::post('admin/product_best/update/{id}', 'Backend\ProductBestController@update')->name('update');
+		Route::get('admin/product_best/destroy/{id}', 'Backend\ProductBestController@destroy')->name('destroy');
+	});											
+	Route::name('product_category.')->group(function () {
+		Route::get('admin/product_category/index', 'Backend\ProductCategoryController@index')->name('index');
+		Route::get('admin/product_category/create', 'Backend\ProductCategoryController@create')->name('create');
+		Route::post('admin/product_category/store', 'Backend\ProductCategoryController@store')->name('store');
+		Route::get('admin/product_category/show/{id}', 'Backend\ProductCategoryController@show')->name('show');
+		Route::get('admin/product_category/edit/{id}', 'Backend\ProductCategoryController@edit')->name('edit');
+		Route::post('admin/product_category/update/{id}', 'Backend\ProductCategoryController@update')->name('update');
+		Route::get('admin/product_category/destroy/{id}', 'Backend\ProductCategoryController@destroy')->name('destroy');
+	});
+	Route::name('product_deal.')->group(function () {
+		Route::get('admin/product_deal/index', 'Backend\ProductDealController@index')->name('index');
+		Route::get('admin/product_deal/create', 'Backend\ProductDealController@create')->name('create');
+		Route::post('admin/product_deal/store', 'Backend\ProductDealController@store')->name('store');
+		Route::get('admin/product_deal/show/{id}', 'Backend\ProductDealController@show')->name('show');
+		Route::get('admin/product_deal/edit/{id}', 'Backend\ProductDealController@edit')->name('edit');
+		Route::post('admin/product_deal/update/{id}', 'Backend\ProductDealController@update')->name('update');
+		Route::get('admin/product_deal/destroy/{id}', 'Backend\ProductDealController@destroy')->name('destroy');
+	});	
+	Route::name('product_home.')->group(function () {
+		Route::get('admin/product_home/index', 'Backend\ProductHomeController@index')->name('index');
+		Route::get('admin/product_home/create', 'Backend\ProductHomeController@create')->name('create');
+		Route::post('admin/product_home/store', 'Backend\ProductHomeController@store')->name('store');
+		Route::get('admin/product_home/show/{id}', 'Backend\ProductHomeController@show')->name('show');
+		Route::get('admin/product_home/edit/{id}', 'Backend\ProductHomeController@edit')->name('edit');
+		Route::post('admin/product_home/update/{id}', 'Backend\ProductHomeController@update')->name('update');
+		Route::get('admin/product_home/destroy/{id}', 'Backend\ProductHomeController@destroy')->name('destroy');
+	});		
+	Route::name('product_trend.')->group(function () {
+		Route::get('admin/product_trend/index', 'Backend\ProductTrendController@index')->name('index');
+		Route::get('admin/product_trend/create', 'Backend\ProductTrendController@create')->name('create');
+		Route::post('admin/product_trend/store', 'Backend\ProductTrendController@store')->name('store');
+		Route::get('admin/product_trend/show/{id}', 'Backend\ProductTrendController@show')->name('show');
+		Route::get('admin/product_trend/edit/{id}', 'Backend\ProductTrendController@edit')->name('edit');
+		Route::post('admin/product_trend/update/{id}', 'Backend\ProductTrendController@update')->name('update');
+		Route::get('admin/product_trend/destroy/{id}', 'Backend\ProductTrendController@destroy')->name('destroy');
+	});	
+	Route::name('product_banner.')->group(function () {
+		Route::get('admin/product_banner/index', 'Backend\ProductBannerController@index')->name('index');
+		Route::get('admin/product_banner/create', 'Backend\ProductBannerController@create')->name('create');
+		Route::post('admin/product_banner/store', 'Backend\ProductBannerController@store')->name('store');
+		Route::get('admin/product_banner/show/{id}', 'Backend\ProductBannerController@show')->name('show');
+		Route::get('admin/product_banner/edit/{id}', 'Backend\ProductBannerController@edit')->name('edit');
+		Route::post('admin/product_banner/update/{id}', 'Backend\ProductBannerController@update')->name('update');
+		Route::get('admin/product_banner/destroy/{id}', 'Backend\ProductBannerController@destroy')->name('destroy');
+	});				
+	Route::name('product.')->group(function () {
+		Route::get('admin/product/index', 'Backend\ProductController@index')->name('index');
+		Route::get('admin/product/create', 'Backend\ProductController@create')->name('create');
+		Route::post('admin/product/store', 'Backend\ProductController@store')->name('store');
+		Route::get('admin/product/show/{id}', 'Backend\ProductController@show')->name('show');
+		Route::get('admin/product/edit/{id}', 'Backend\ProductController@edit')->name('edit');
+		Route::post('admin/product/update/{id}', 'Backend\ProductController@update')->name('update');
+		Route::get('admin/product/destroy/{id}', 'Backend\ProductController@destroy')->name('destroy');
+	});	
+	Route::name('shop_information.')->group(function () {
+		Route::get('admin/shop_information/index', 'Backend\ShopInformationController@index')->name('index');
+		Route::get('admin/shop_information/create', 'Backend\ShopInformationController@create')->name('create');
+		Route::post('admin/shop_information/store', 'Backend\ShopInformationController@store')->name('store');
+		Route::get('admin/shop_information/show/{id}', 'Backend\ShopInformationController@show')->name('show');
+		Route::get('admin/shop_information/edit/{id}', 'Backend\ShopInformationController@edit')->name('edit');
+		Route::post('admin/shop_information/update/{id}', 'Backend\ShopInformationController@update')->name('update');
+		Route::get('admin/shop_information/destroy/{id}', 'Backend\ShopInformationController@destroy')->name('destroy');
+	});	
+	Route::name('supplier.')->group(function () {
+		Route::get('admin/supplier/index', 'Backend\SupplierController@index')->name('index');
+		Route::get('admin/supplier/create', 'Backend\SupplierController@create')->name('create');
+		Route::post('admin/supplier/store', 'Backend\SupplierController@store')->name('store');
+		Route::get('admin/supplier/show/{id}', 'Backend\SupplierController@show')->name('show');
+		Route::get('admin/supplier/edit/{id}', 'Backend\SupplierController@edit')->name('edit');
+		Route::post('admin/supplier/update/{id}', 'Backend\SupplierController@update')->name('update');
+		Route::get('admin/supplier/destroy/{id}', 'Backend\SupplierController@destroy')->name('destroy');
+	});
+	Route::name('wishlist.')->group(function () {
+		Route::get('admin/wishlist/index', 'Backend\WishlistController@index')->name('index');
+		Route::get('admin/wishlist/create', 'Backend\WishlistController@create')->name('create');
+		Route::post('admin/wishlist/store', 'Backend\WishlistController@store')->name('store');
+		Route::get('admin/wishlist/show/{id}', 'Backend\WishlistController@show')->name('show');
+		Route::get('admin/wishlist/edit/{id}', 'Backend\WishlistController@edit')->name('edit');
+		Route::post('admin/wishlist/update/{id}', 'Backend\WishlistController@update')->name('update');
+		Route::get('admin/wishlist/destroy/{id}', 'Backend\WishlistController@destroy')->name('destroy');
+	});	
+	Route::name('order.')->group(function () {
+		Route::get('admin/order/index', 'Backend\OrderController@index')->name('index');
+		Route::get('admin/order/create', 'Backend\OrderController@create')->name('create');
+		Route::post('admin/order/store', 'Backend\OrderController@store')->name('store');
+		Route::get('admin/order/show/{id}', 'Backend\OrderController@show')->name('show');
+		Route::get('admin/order/edit/{id}', 'Backend\OrderController@edit')->name('edit');
+		Route::post('admin/order/update/{id}', 'Backend\OrderController@update')->name('update');
+		Route::get('admin/order/destroy/{id}', 'Backend\OrderController@destroy')->name('destroy');
+	});	
 });
 
 Route::name('superadmin.')->group(function () {
-	Route::get('superadmin/index', 'Admin\SuperAdminController@index')->name('index');	
 	Route::name('company.')->group(function () {
-		Route::get('superadmin/company/index', 'Admin\CompanyController@index')->name('index');
-		Route::get('superadmin/company/create', 'Admin\CompanyController@create')->name('create');
-		Route::post('superadmin/company/store', 'Admin\CompanyController@store')->name('store');
-		Route::get('superadmin/company/show/{id}', 'Admin\CompanyController@show')->name('show');
-		Route::get('superadmin/company/edit/{id}', 'Admin\CompanyController@edit')->name('edit');
-		Route::post('superadmin/company/update/{id}', 'Admin\CompanyController@update')->name('update');
-		Route::get('superadmin/company/destroy/{id}', 'Admin\CompanyController@destroy')->name('destroy');
+		Route::get('superadmin/company/index', 'Backend\CompanyController@index')->name('index');
+		Route::get('superadmin/company/create', 'Backend\CompanyController@create')->name('create');
+		Route::post('superadmin/company/store', 'Backend\CompanyController@store')->name('store');
+		Route::get('superadmin/company/show/{id}', 'Backend\CompanyController@show')->name('show');
+		Route::get('superadmin/company/edit/{id}', 'Backend\CompanyController@edit')->name('edit');
+		Route::post('superadmin/company/update/{id}', 'Backend\CompanyController@update')->name('update');
+		Route::get('superadmin/company/destroy/{id}', 'Backend\CompanyController@destroy')->name('destroy');
 	});
 });

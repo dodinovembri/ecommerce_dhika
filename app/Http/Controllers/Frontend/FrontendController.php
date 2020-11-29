@@ -4,6 +4,20 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\LanguangeModel;
+use App\Models\CurrencyModel;
+use App\Models\SocialMediaModel;
+use App\Models\ProductCategoryModel;
+use App\Models\ProductHomeModel;
+use App\Models\AdvantageModel;
+use App\Models\ProductTrendModel;
+use App\Models\ProductBannerModel;
+use App\Models\ProductDealModel;
+use App\Models\ProductBestModel;
+use App\Models\BlogModel;
+use App\Models\ProductModel;
+use App\Models\PartnerModel;
+use App\Models\ShopInformationModel;
 
 class FrontendController extends Controller
 {
@@ -15,7 +29,24 @@ class FrontendController extends Controller
 
     public function index()
     {
-        return view('frontend.home');
+        $data['languange'] = LanguangeModel::where('status', 1)->get();
+        $data['currency'] = CurrencyModel::where('status', 1)->get();
+        $data['social_media'] = SocialMediaModel::where('status', 1)->get();
+        $data['product_category'] = ProductCategoryModel::where('status', 1)->get();
+        $data['product_home'] = ProductHomeModel::where('status', 1)->get();
+        $data['advantage'] = AdvantageModel::where('status', 1)->get();
+        $data['product_trend'] = ProductTrendModel::with('product')->with('product_category')->where('status', 1)->get();
+        $data['product_banner'] = ProductBannerModel::where('status', 1)->get();
+        $data['product_deal'] = ProductDealModel::with('product')->with('product_category')->where('status', 1)->get();
+        $data['product_best'] = ProductBestModel::with('product')->with('product_category')->where('status', 1)->get();
+        $data['blog'] = BlogModel::where('status', 1)->get();
+        $data['product_featured'] = ProductModel::with('product_category')->where('status', 1)->get();
+        $data['partner'] = PartnerModel::where('status', 1)->get();
+        $data['shop_information'] = ShopInformationModel::where('status', 1)->first();
+
+
+
+        return view('frontend.home', $data);
     }
 
     /**

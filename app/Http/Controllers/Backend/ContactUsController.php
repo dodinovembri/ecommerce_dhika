@@ -5,25 +5,25 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\PaymentMethodModel;
+use App\Models\ProductCategoryModel;
 use Illuminate\Support\Facades\Storage;
 
-class PaymentMethodController extends Controller
+class ContactUsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $table = "payment_method";
+    public $table = "product_category";
 
-    public $index = "admin/payment_method/index";
-    public $create = "admin/payment_method/create";
-    public $store = "admin/payment_method/store";
-    public $show = "admin/payment_method/show";
-    public $edit = "admin/payment_method/edit";
-    public $update = "admin/payment_method/update";
-    public $destroy = "admin/payment_method/destroy";
+    public $index = "admin/product_category/index";
+    public $create = "admin/product_category/create";
+    public $store = "admin/product_category/store";
+    public $show = "admin/product_category/show";
+    public $edit = "admin/product_category/edit";
+    public $update = "admin/product_category/update";
+    public $destroy = "admin/product_category/destroy";
 
     public $file_storage = "public/img/product";
 
@@ -41,13 +41,13 @@ class PaymentMethodController extends Controller
                 "link"=>"admin", 
                 "is_active"=>"inactive"
             ),
-            "payment_method"=>array(
-                "text"=>"Product Method", 
+            "product_category"=>array(
+                "text"=>"Product Category", 
                 "link"=>"", 
                 "is_active"=>"active"
             )
         );
-        $data['title'] = "Product Method";
+        $data['title'] = "Product Category";
 
         // for route link
         $data['index'] = $this->index;
@@ -60,7 +60,7 @@ class PaymentMethodController extends Controller
         $data['table_field'] = DB::select("DESCRIBE $table");
         $data['field_break'] = "created_at";
         $data['text_add'] = "Add New";
-        $data['table_data'] = PaymentMethodModel::all();
+        $data['table_data'] = ProductCategoryModel::all();
 
         return view('backend.single_page.index', $data);
     }
@@ -79,18 +79,18 @@ class PaymentMethodController extends Controller
                 "link"=>"admin", 
                 "is_active"=>"inactive"
             ),
-            "payment_method"=>array(
-                "text"=>"Product Method", 
+            "product_category"=>array(
+                "text"=>"Product Category", 
                 "link"=>$this->index, 
                 "is_active"=>"inactive"
             ),
-            "create_payment_method"=>array(
-                "text"=>"Create Product Method", 
+            "create_product_category"=>array(
+                "text"=>"Create Product Category", 
                 "link"=>"#", 
                 "is_active"=>"active"
             )
         );
-        $data['title'] = "Create Product Method";
+        $data['title'] = "Create Product Category";
 
         $data['store'] = $this->store;
         $data['index'] = $this->index;
@@ -126,7 +126,7 @@ class PaymentMethodController extends Controller
             $count = count($arr_field); 
         }
 
-        $insert = new PaymentMethodModel();
+        $insert = new ProductCategoryModel();
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type,0,3);
@@ -176,17 +176,17 @@ class PaymentMethodController extends Controller
                 "is_active"=>"inactive"
             ),
             "general_information"=>array(
-                "text"=>"Product Method", 
+                "text"=>"Product Category", 
                 "link"=>$this->index, 
                 "is_active"=>"inactive"
             ),
             "edit_general_information"=>array(
-                "text"=>"Edit Product Method", 
+                "text"=>"Edit Product Category", 
                 "link"=>"", 
                 "is_active"=>"active"
             )            
         );
-        $data['title'] = "Edit Product Method";
+        $data['title'] = "Edit Product Category";
         $data['update'] = $this->update;
         $data['index'] = $this->index;
 
@@ -197,7 +197,7 @@ class PaymentMethodController extends Controller
         $data['field_break'] = "created_at";
         $data['field_'] = "created_at";
 
-        $data['table_content'] = PaymentMethodModel::find($id);
+        $data['table_content'] = ProductCategoryModel::find($id);
 
         return view('backend.single_page.edit', $data);
     }
@@ -227,7 +227,7 @@ class PaymentMethodController extends Controller
             $count = count($arr_field); 
         }
 
-        $update = PaymentMethodModel::find($id);
+        $update = ProductCategoryModel::find($id);
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type,0,3);
@@ -242,7 +242,7 @@ class PaymentMethodController extends Controller
             }else{
                 $field_db = $arr_field[$i];            
                 $update->$field_db = $request->$field_db;            
-            }         
+            }             
         }        
         $update->update();
 
@@ -258,7 +258,7 @@ class PaymentMethodController extends Controller
      */
     public function destroy($id)
     {
-        $findtodelete = PaymentMethodModel::find($id);
+        $findtodelete = ProductCategoryModel::find($id);
         $findtodelete->delete();
 
         $result = preg_replace("/[^a-zA-Z]/", " ", $this->table); 
