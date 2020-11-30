@@ -52,7 +52,7 @@ class ShopInformationController extends Controller
         // for route link
         $data['index'] = $this->index;
         $data['edit'] = $this->edit;
-        // $data['create'] = $this->create;
+        $data['create'] = $this->create;
         // $data['destroy'] = $this->destroy;
         
 

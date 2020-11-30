@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductTrendModel;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ProductCategoryModel;
+use App\Models\ProductModel;
 
 class ProductTrendController extends Controller
 {
@@ -72,6 +74,17 @@ class ProductTrendController extends Controller
      */
     public function create()
     {
+        // define product category
+        $dropdown[0] = ProductCategoryModel::where('status', 1)->get();
+        $dropdown_option[0] = "product_category_name";
+
+        // define product
+        $dropdown[1] = ProductModel::where('status', 1)->get();
+        $dropdown_option[1] = "product_name";
+
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option;
+                
         // for breadcrumb
         $data['breadcrumb'] = array(
             "home"=>array(
