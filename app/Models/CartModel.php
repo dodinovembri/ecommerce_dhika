@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategoryModel extends Model
+class CartModel extends Model
 {
     public $table ='cart';
-    public $guarded ='[]';
+    public $guarded ='[]';   
 }

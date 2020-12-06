@@ -20,27 +20,18 @@
                             @include('templates.backend.flashmessage')
                             <?php if (isset($create)) { ?>
                                 <a href="{{ url($create) }}"><button type="button" class="btn btn-primary">{{ $text_add }}</button></a><br><br>
-                            <?php } ?>
+                            <?php } ?>                            
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
                                         <?php foreach ($table_field as $key => $value) {
-                        					$field_table = $value->Field;
-                        					$field_type = $value->Type;   
-                        					             	
-                                            if (in_array($key, $column_hidden)) {
-                                                continue;
-                                            }
-                                            if ($field_table == $field_first){
-                        		                continue;
-                        		            }
-                                            if ($field_table == $field_break){
+                                            if ($value->Field == $field_break){
                                                 break;
-                                            }                                    
-                                            $column_name = preg_replace("/[^a-zA-Z]/", " ", $field_table) ?>
-                                            <th>{{ ucfirst($column_name) }}</th>
+                                            }                                            
+                                            $string = preg_replace("/[^a-zA-Z]/", " ", $value->Field) ?>
+                                            <th>{{ ucfirst($string) }}</th>
                                             <?php 
-                                            $arr_field[] = $field_table;
+                                            $arr_field[] = $value->Field;
                                             $count = count($arr_field); 
                                         } ?>
                                         <th>Actions</th>
@@ -50,9 +41,9 @@
                                     <?php foreach ($table_data as $key => $value) { ?>
                                         <tr>
                                             <?php for ($i=0; $i < $count; $i++) {
-                                                $clean_string = $arr_field[$i];
+                                                $clean_string = $arr_field[$i]; 
                                                 ?>   
-                                                <td>{{ substr($value->$clean_string, 0,50) }}</td>
+                                                <td>{{ $value->$clean_string }}</td>
                                             <?php } ?>                                            
                                             <td>
                                                 @include('templates.backend.action')

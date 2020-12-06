@@ -24,11 +24,9 @@
                         <a href="javascript: void(0);"><i data-feather="shopping-cart" class="align-self-center menu-icon"></i><span>Transactions</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                         <ul class="nav-second-level" aria-expanded="false">
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/order/index') }}"><i class="ti-control-record"></i>Orders</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('admin/voucher/index') }}"><i class="ti-control-record"></i>Vouchers</a></li>
                         </ul>
-                    </li> 
-    
-                    <hr class="hr-dashed hr-menu">
-                    <li class="menu-label my-2">Setting</li>
+                    </li>   
 
                     <li>
                         <a href="javascript: void(0);"><i data-feather="book" class="align-self-center menu-icon"></i><span>Master</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -48,6 +46,7 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/product_home/index') }}"><i class="ti-control-record"></i>Product Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/product_trend/index') }}"><i class="ti-control-record"></i>Product Trend</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/product_banner/index') }}"><i class="ti-control-record"></i>Product Banner</a></li>                            
+                            <li class="nav-item"><a class="nav-link" href="{{ url('admin/product_stock/index') }}"><i class="ti-control-record"></i>Product Stock</a></li>                            
                         </ul>
                     </li> 
 

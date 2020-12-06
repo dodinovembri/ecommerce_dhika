@@ -69,11 +69,15 @@
 										<li><a href="{{ url('frontend/login/index') }}">Login</a></li>
 									</ul>
 								</div>
+								<?php       
+									$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';  
+									$count_wishlist = App\Models\WishlistModel::where('status', 1)->where('user_id', $user_id)->count();
+        							$count_cart = App\Models\CartDetailModel::where('status', 1)->where('user_id', $user_id)->count(); ?>
 								<div class="header_account_list header_wishlist">
-									<a href="{{ url('frontend/wishlist/index') }}"><span class="lnr lnr-heart"></span> <span class="item_count">3</span> </a>
+									<a href="{{ url('frontend/wishlist/index') }}"><span class="lnr lnr-heart"></span> <span class="item_count">{{ $count_wishlist }}</span> </a>
 								</div>
 								<div class="header_account_list  mini_cart_wrapper">
-									<a href="javascript:void(0)"><span class="lnr lnr-cart"></span><span class="item_count">2</span></a>
+									<a href="javascript:void(0)"><span class="lnr lnr-cart"></span><span class="item_count">{{ $count_cart }}</span></a>
 									<!--mini cart-->
 									<div class="mini_cart">
 										<div class="cart_gallery">
@@ -85,108 +89,140 @@
 													<a href="javascript:void(0)"><i class="icon-x"></i></a>
 												</div>
 											</div>
-											<?php for ($i=0; $i < 3; $i++) { ?>
-												<div class="cart_item">
-													<div class="cart_img">
-														<a href="#"><img src="{{ asset('frontend/img/s-product/product.jpg') }}" alt=""></a>
-													</div>
-													<div class="cart_info">
-														<a href="#">Primis In Faucibus</a>
-														<p>1 x <span> $65.00 </span></p>    
-													</div>
-													<div class="cart_remove">
-														<a href="#"><i class="icon-x"></i></a>
-													</div>
-												</div>												
-											<?php } ?>
+											<?php 
+											$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';
+											if (!empty($user_id)) { 
+												$cart_data = App\Models\CartModel::where('user_id', $user_id)->first();
+												if (!empty($cart_data)) {
+													$cart_detail_data = App\Models\CartDetailModel::with('product')->where('cart_id', $cart_data->id)->get();
+													foreach ($cart_detail_data as $key => $value) { ?>
+														<div class="cart_item">
+															<div class="cart_img">
+																<a href="#"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt=""></a>
+															</div>
+															<div class="cart_info">
+																<a href="#">{{ $value->product->product_name }}</a>
+																<p>1 x <span> {{ number_format($value->product->price, 2, ',', '.') }} </span></p>    
+															</div>
+															<div class="cart_remove">
+																<a href="{{ url('frontend/cart/destroy', $value->id) }}"><i class="icon-x"></i></a>
+															</div>
+														</div>	
+													<?php } ?>															
+												<?php }																					
+											} 
+											?>
 										</div>
-										<div class="mini_cart_table">
-											<div class="cart_table_border">
-												<div class="cart_total">
-													<span>Sub total:</span>
-													<span class="price">$125.00</span>
+										<?php 
+										$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';
+										if (!empty($user_id)) { 
+											$cart_data = App\Models\CartModel::where('user_id', $user_id)->first();
+											if (!empty($cart_data)) {
+												$cart_detail_data = App\Models\CartDetailModel::with('product')->where('cart_id', $cart_data->id)->get(); 
+												$sub_total = $cart_data->total_price;
+												$total = $cart_data->total_price; 
+												?>
+												<div class="mini_cart_table">
+													<div class="cart_table_border">
+														<div class="cart_total">
+															<span>Sub total:</span>
+															<span class="price">Rp. {{ number_format($sub_total, 2, ',', '.') }}</span>
+														</div>
+														<div class="cart_total mt-10">
+															<span>total:</span>
+															<span class="price">Rp. {{ number_format($total, 2, ',', '.') }}</span>
+														</div>
+													</div>
 												</div>
-												<div class="cart_total mt-10">
-													<span>total:</span>
-													<span class="price">$125.00</span>
-												</div>
-											</div>
-										</div>
+											<?php	}else{
+												echo "</br>";
+												echo "<p>Your cart is empty, shop now to make an order!</p>";
+											}
+										}									
+										?>
 										<div class="mini_cart_footer">
 											<div class="cart_button">
-												<a href="cart.html"><i class="fa fa-shopping-cart"></i> View cart</a>
+												<a href="{{ url('frontend/cart/index') }}"><i class="fa fa-shopping-cart"></i> View cart</a>
 											</div>
-											<div class="cart_button">
-												<a href="checkout.html"><i class="fa fa-sign-in"></i> Checkout</a>
+											<?php 
+											$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';
+											if (!empty($user_id)) { 
+												$cart_data = App\Models\CartModel::where('user_id', $user_id)->first();
+												if (!empty($cart_data)) {
+													?>
+													<div class="cart_button">
+														<a href="{{ url('frontend/checkout/index') }}"><i class="fa fa-sign-in"></i> Checkout</a>
+													</div>
+												<?php }
+													}
+												?>
+												</div>										 
 											</div>
-
+											<!--mini cart end-->
 										</div>
 									</div>
-									<!--mini cart end-->
 								</div>
 							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<div class="header_bottom sticky-header">
-			<div class="container">  
-				<div class="row align-items-center">
-					<div class="col-12 col-md-6 mobail_s_block">
-						<div class="search_container">
-							<form action="#">
-								<div class="hover_category">
-									<select class="select_option" name="select" id="categori2">
-										<?php foreach ($product_category as $key => $value) { ?>
-											<option value="{{ $value->id }}">{{ $value->product_category_name }}</option>
-										<?php } ?>
-									</select>                        
-								</div>
-								<div class="search_box">
-									<input placeholder="Search product..." type="text">
-									<button type="submit"><span class="lnr lnr-magnifier"></span></button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="categories_menu">
-							<div class="categories_title">
-								<h2 class="categori_toggle">All Cattegories</h2>
-							</div>
-							<div class="categories_menu_toggle">
-								<ul>
-									<?php foreach ($product_category as $key => $value) { ?>
-										<li><a href="{{ $value->id }}"> {{ $value->product_category_name }}</a></li>
-									<?php } ?>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<!--main menu start-->
-						<div class="main_menu menu_position"> 
-							<nav>  
-								<ul>
-									<li><a href="contact.html"> Home</a></li>
-									<li><a href="contact.html"> Shop</a></li>
-									<li><a href="contact.html"> Blog</a></li>
-									<li><a href="contact.html"> Contact Us</a></li>
-								</ul>  
-							</nav> 
-						</div>
-						<!--main menu end-->
-					</div>
-					<div class="col-lg-3">
-						<div class="call-support">
-							<p><a href="tel:(08)23456789">{{ $shop_information->shop_call_us }}</a> Customer Support</p>
+
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div> 
-</header>
+				<div class="header_bottom sticky-header">
+					<div class="container">  
+						<div class="row align-items-center">
+							<div class="col-12 col-md-6 mobail_s_block">
+								<div class="search_container">
+									<form action="#">
+										<div class="hover_category">
+											<select class="select_option" name="select" id="categori2">
+												<?php foreach ($product_category as $key => $value) { ?>
+													<option value="{{ $value->id }}">{{ $value->product_category_name }}</option>
+												<?php } ?>
+											</select>                        
+										</div>
+										<div class="search_box">
+											<input placeholder="Search product..." type="text">
+											<button type="submit"><span class="lnr lnr-magnifier"></span></button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="categories_menu">
+									<div class="categories_title">
+										<h2 class="categori_toggle">All Cattegories</h2>
+									</div>
+									<div class="categories_menu_toggle">
+										<ul>
+											<?php foreach ($product_category as $key => $value) { ?>
+												<li><a href="{{ $value->id }}"> {{ $value->product_category_name }}</a></li>
+											<?php } ?>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<!--main menu start-->
+								<div class="main_menu menu_position"> 
+									<nav>  
+										<ul>
+											<li><a href="{{ url('/') }}"> Home</a></li>
+											<li><a href="contact.html"> Shop</a></li>
+											<li><a href="contact.html"> Blog</a></li>
+											<li><a href="contact.html"> Contact Us</a></li>
+										</ul>  
+									</nav> 
+								</div>
+								<!--main menu end-->
+							</div>
+							<div class="col-lg-3">
+								<div class="call-support">
+									<p><a href="tel:(08)23456789">{{ $shop_information->shop_call_us }}</a> Customer Support</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+		</header>
 <!--header area end-->

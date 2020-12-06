@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WishlistModel extends Model
+class CartDetailModel extends Model
 {
-    public $table ='wishlist';
+    public $table ='cart_detail';
     public $guarded ='[]';
 
     public function product()
@@ -17,5 +17,5 @@ class WishlistModel extends Model
     public function product_stock()
   	{
   		return $this->belongsTo(ProductStockModel::class, 'product_id');	
-  	}      
+  	}    
 }
