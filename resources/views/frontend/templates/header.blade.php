@@ -41,7 +41,7 @@
 					<div class="col-lg-2 col-md-3 col-sm-3 col-3">
 						<div class="logo">
 							<?php $shop_information = App\Models\ShopInformationModel::where('status', 1)->first(); ?>
-							<a href="index.html"><img src="{{ asset(Storage::url('img/shop')) }}/{{ $shop_information->shop_logo }}" alt=""></a>
+							<a href="index.html"><img src="{{ asset(Storage::url('img/shop_information')) }}/{{ $shop_information->shop_logo }}" alt=""></a>
 						</div>
 					</div>
 					<div class="col-lg-10 col-md-6 col-sm-7 col-8">
