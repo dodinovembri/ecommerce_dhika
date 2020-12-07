@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\PartnerModel;
+use App\Models\VoucherModel;
+use App\Models\UserModel;
 use Illuminate\Support\Facades\Storage;
 
-class PartnerController extends Controller
+class VoucherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class PartnerController extends Controller
     /*
     | General setup
     */
-    public $table           = "partner";
+    public $table           = "voucher";
     public $column_hidden   = [];
-    public $file_storage    = "public/img/partner";
+    public $file_storage    = "public/img/voucher";
     public $field_first     = "id";
     public $field_break     = "created_at";
     public $text_add        = "Add New";
@@ -29,13 +30,13 @@ class PartnerController extends Controller
     | Link crud
     */
     public $base    = "admin";
-    public $index   = "admin/partner/index";
-    public $create  = "admin/partner/create";
-    public $store   = "admin/partner/store";
-    public $show    = "admin/partner/show";
-    public $edit    = "admin/partner/edit";
-    public $update  = "admin/partner/update";
-    public $destroy = "admin/partner/destroy";
+    public $index   = "admin/voucher/index";
+    public $create  = "admin/voucher/create";
+    public $store   = "admin/voucher/store";
+    public $show    = "admin/voucher/show";
+    public $edit    = "admin/voucher/edit";
+    public $update  = "admin/voucher/update";
+    public $destroy = "admin/voucher/destroy";
 
 
     public function __construct()
@@ -63,13 +64,13 @@ class PartnerController extends Controller
                 "link" => $this->base,
                 "is_active" => "inactive"
             ),
-            "partner" => array(
-                "text" => "Partner", 
+            "voucher" => array(
+                "text" => "Voucher", 
                 "link" => "", 
                 "is_active" => "active"
             )
         );
-        $data['title'] = "Partner";
+        $data['title'] = "Voucher";
         $data['index'] = $this->index;
         $data['edit'] = $this->edit;
         $data['create'] = $this->create;
@@ -78,7 +79,7 @@ class PartnerController extends Controller
         $data['field_break'] = $this->field_break;
         $data['field_first'] = $this->field_first;
         $data['text_add'] = $this->text_add;
-        $data['table_data'] = PartnerModel::all();
+        $data['table_data'] = VoucherModel::all();
 
         return view('backend.single_page.index', $data);
     }
@@ -90,6 +91,11 @@ class PartnerController extends Controller
      */
     public function create()
     {
+        $dropdown[0] = UserModel::where('status', 1)->get();
+        $dropdown_option[0] = "name";
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option;  
+
         $table = $this->table;
         $data['column_hidden'] = $this->column_hidden;
         $data['breadcrumb'] = array(
@@ -98,18 +104,18 @@ class PartnerController extends Controller
                 "link" => $this->base,
                 "is_active" => "inactive"
             ),
-            "partner" => array(
-                "text" => "Partner", 
+            "voucher" => array(
+                "text" => "Voucher", 
                 "link" => $this->index, 
                 "is_active" => "inactive"
             ),
-            "create_partner" => array(
-                "text" => "Create Partner", 
+            "create_voucher" => array(
+                "text" => "Create Voucher", 
                 "link" => "#", 
                 "is_active" => "active"
             )
         );
-        $data['title'] = "Create Partner";
+        $data['title'] = "Create Voucher";
         $data['store'] = $this->store;
         $data['index'] = $this->index;
         $data['table_field'] = DB::select("DESCRIBE $table");
@@ -154,7 +160,7 @@ class PartnerController extends Controller
             $count = count($arr_field); 
         }
 
-        $insert = new PartnerModel();
+        $insert = new VoucherModel();
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type, 0, 3);
@@ -196,6 +202,11 @@ class PartnerController extends Controller
      */
     public function edit($id)
     {
+        $dropdown[0] = UserModel::where('status', 1)->get();
+        $dropdown_option[0] = "name";
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option; 
+                
         $table = $this->table;
         $data['column_hidden'] = $this->column_hidden;
         $data['breadcrumb'] = array(
@@ -204,25 +215,25 @@ class PartnerController extends Controller
                 "link" => $this->base,
                 "is_active" => "inactive"
             ),
-            "partner" => array(
-                "text" => "Partner", 
+            "voucher" => array(
+                "text" => "Voucher", 
                 "link" => $this->index, 
                 "is_active" => "inactive"
             ),
-            "edit_partner" => array(
-                "text" => "Edit Partner", 
+            "edit_voucher" => array(
+                "text" => "Edit Voucher", 
                 "link" => "", 
                 "is_active" => "active"
             )            
         );
-        $data['title'] = "Edit Partner";
+        $data['title'] = "Edit Voucher";
         $data['update'] = $this->update;
         $data['index'] = $this->index;
         $data['id'] = $id;
         $data['table_field'] = DB::select("DESCRIBE $table");
         $data['field_first'] = $this->field_first;
         $data['field_break'] = $this->field_break;
-        $data['table_content'] = PartnerModel::find($id);
+        $data['table_content'] = VoucherModel::find($id);
 
         return view('backend.single_page.edit', $data);
     }
@@ -263,7 +274,7 @@ class PartnerController extends Controller
             $count = count($arr_field); 
         }
 
-        $update = PartnerModel::find($id);
+        $update = VoucherModel::find($id);
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
             $text_check = substr($text_type, 0, 3);
@@ -297,7 +308,7 @@ class PartnerController extends Controller
         $table = $this->table;
         $index = $this->index;
 
-        $findtodelete = PartnerModel::find($id);
+        $findtodelete = VoucherModel::find($id);
         $findtodelete->delete();
 
         $result = preg_replace("/[^a-zA-Z]/", " ", $table); 

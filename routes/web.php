@@ -81,15 +81,6 @@ Route::name('admin.')->group(function () {
 		Route::post('admin/cart/update/{id}', 'Backend\CartController@update')->name('update');
 		Route::get('admin/cart/destroy/{id}', 'Backend\CartController@destroy')->name('destroy');
 	});
-	Route::name('contact_us.')->group(function () {
-		Route::get('admin/contact_us/index', 'Backend\ContactUsController@index')->name('index');
-		Route::get('admin/contact_us/create', 'Backend\ContactUsController@create')->name('create');
-		Route::post('admin/contact_us/store', 'Backend\ContactUsController@store')->name('store');
-		Route::get('admin/contact_us/show/{id}', 'Backend\ContactUsController@show')->name('show');
-		Route::get('admin/contact_us/edit/{id}', 'Backend\ContactUsController@edit')->name('edit');
-		Route::post('admin/contact_us/update/{id}', 'Backend\ContactUsController@update')->name('update');
-		Route::get('admin/contact_us/destroy/{id}', 'Backend\ContactUsController@destroy')->name('destroy');
-	});	
 	Route::name('currency.')->group(function () {
 		Route::get('admin/currency/index', 'Backend\CurrencyController@index')->name('index');
 		Route::get('admin/currency/create', 'Backend\CurrencyController@create')->name('create');
@@ -251,6 +242,15 @@ Route::name('admin.')->group(function () {
 		Route::get('admin/order/edit/{id}', 'Backend\OrderController@edit')->name('edit');
 		Route::post('admin/order/update/{id}', 'Backend\OrderController@update')->name('update');
 		Route::get('admin/order/destroy/{id}', 'Backend\OrderController@destroy')->name('destroy');
+	});	
+	Route::name('voucher.')->group(function () {
+		Route::get('admin/voucher/index', 'Backend\VoucherController@index')->name('index');
+		Route::get('admin/voucher/create', 'Backend\VoucherController@create')->name('create');
+		Route::post('admin/voucher/store', 'Backend\VoucherController@store')->name('store');
+		Route::get('admin/voucher/show/{id}', 'Backend\VoucherController@show')->name('show');
+		Route::get('admin/voucher/edit/{id}', 'Backend\VoucherController@edit')->name('edit');
+		Route::post('admin/voucher/update/{id}', 'Backend\VoucherController@update')->name('update');
+		Route::get('admin/voucher/destroy/{id}', 'Backend\VoucherController@destroy')->name('destroy');
 	});	
 });
 

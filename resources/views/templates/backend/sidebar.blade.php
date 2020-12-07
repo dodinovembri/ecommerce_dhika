@@ -58,7 +58,6 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/social_media/index') }}"><i class="ti-control-record"></i>Social Media</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/shop_information/index') }}"><i class="ti-control-record"></i>Shop Information</a></li>   
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/advantage/index') }}"><i class="ti-control-record"></i>Advantage</a></li>                         
-                            <li class="nav-item"><a class="nav-link" href="{{ url('admin/contact_us/index') }}"><i class="ti-control-record"></i>Contact Us</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/partner/index') }}"><i class="ti-control-record"></i>Partner</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/blog/index') }}"><i class="ti-control-record"></i>Blog</a></li>
                         </ul>

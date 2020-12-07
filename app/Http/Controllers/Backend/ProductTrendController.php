@@ -17,51 +17,69 @@ class ProductTrendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $table = "product_trend";
+    /*
+    | General setup
+    */
+    public $table           = "product_trend";
+    public $column_hidden   = [];
+    public $file_storage    = "public/img/product_trend";
+    public $field_first     = "id";
+    public $field_break     = "created_at";
+    public $text_add        = "Add New";
 
-    public $index = "admin/product_trend/index";
-    public $create = "admin/product_trend/create";
-    public $store = "admin/product_trend/store";
-    public $show = "admin/product_trend/show";
-    public $edit = "admin/product_trend/edit";
-    public $update = "admin/product_trend/update";
+    /*
+    | Link crud
+    */
+    public $base    = "admin";
+    public $index   = "admin/product_trend/index";
+    public $create  = "admin/product_trend/create";
+    public $store   = "admin/product_trend/store";
+    public $show    = "admin/product_trend/show";
+    public $edit    = "admin/product_trend/edit";
+    public $update  = "admin/product_trend/update";
     public $destroy = "admin/product_trend/destroy";
 
-    public $file_storage = "public/img/product";
 
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    public function dropdown()
+    {
+        // define dropdown
+        $dropdown[0] = DropdownSelectionModel::where('status', 1)->get();
+        $dropdown_option[0] = "dropdown_selection_name";
+
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option;        
+    }    
+
     public function index()
     {
-        // for breadcrumb
+        $table = $this->table;
+        $data['column_hidden'] = $this->column_hidden;
         $data['breadcrumb'] = array(
-            "home"=>array(
-                "text"=>"Dashboard", 
-                "link"=>"admin", 
-                "is_active"=>"inactive"
+            "home" => array(
+                "text" => "Dashboard", 
+                "link" => $this->base,
+                "is_active" => "inactive"
             ),
-            "product_trend"=>array(
-                "text"=>"Product Trend", 
-                "link"=>"", 
-                "is_active"=>"active"
+            "product_trend" => array(
+                "text" => "Product Trend", 
+                "link" => "", 
+                "is_active" => "active"
             )
         );
         $data['title'] = "Product Trend";
-
-        // for route link
         $data['index'] = $this->index;
         $data['edit'] = $this->edit;
         $data['create'] = $this->create;
         $data['destroy'] = $this->destroy;
-        
-
-        $table = $this->table;
         $data['table_field'] = DB::select("DESCRIBE $table");
-        $data['field_break'] = "created_at";
-        $data['text_add'] = "Add New";
+        $data['field_break'] = $this->field_break;
+        $data['field_first'] = $this->field_first;
+        $data['text_add'] = $this->text_add;
         $data['table_data'] = ProductTrendModel::all();
 
         return view('backend.single_page.index', $data);
@@ -74,43 +92,38 @@ class ProductTrendController extends Controller
      */
     public function create()
     {
-        // define product category
         $dropdown[0] = ProductCategoryModel::where('status', 1)->get();
         $dropdown_option[0] = "product_category_name";
-
-        // define product
         $dropdown[1] = ProductModel::where('status', 1)->get();
-        $dropdown_option[1] = "product_name";
-
+        $dropdown_option[1] = "product_name";          
         $data['dropdown'] = $dropdown;         
-        $data['dropdown_option'] = $dropdown_option;
-                
-        // for breadcrumb
+        $data['dropdown_option'] = $dropdown_option;  
+
+        $table = $this->table;
+        $data['column_hidden'] = $this->column_hidden;
         $data['breadcrumb'] = array(
-            "home"=>array(
-                "text"=>"Dashboard", 
-                "link"=>"admin", 
-                "is_active"=>"inactive"
+            "home" => array(
+                "text" => "Dashboard", 
+                "link" => $this->base,
+                "is_active" => "inactive"
             ),
-            "product_trend"=>array(
-                "text"=>"Product Trend", 
-                "link"=>$this->index, 
-                "is_active"=>"inactive"
+            "product_trend" => array(
+                "text" => "Product Trend", 
+                "link" => $this->index, 
+                "is_active" => "inactive"
             ),
-            "create_product_trend"=>array(
-                "text"=>"Create Product Trend", 
-                "link"=>"#", 
-                "is_active"=>"active"
+            "create_product_trend" => array(
+                "text" => "Create Product Trend", 
+                "link" => "#", 
+                "is_active" => "active"
             )
         );
         $data['title'] = "Create Product Trend";
-
         $data['store'] = $this->store;
         $data['index'] = $this->index;
-        $table = $this->table;
         $data['table_field'] = DB::select("DESCRIBE $table");
-        $data['field_first'] = "id";
-        $data['field_break'] = "created_at";        
+        $data['field_first'] = $this->field_first;
+        $data['field_break'] = $this->field_break;        
 
         return view('backend.single_page.create', $data);
     }
@@ -124,42 +137,53 @@ class ProductTrendController extends Controller
     public function store(Request $request)
     {
         $table = $this->table;
+        $index = $this->index;
+
+        $column_hidden = [];
         $table_field = DB::select("DESCRIBE $table");
-        $field_break = "created_at";
-        $field_first = "id";
+        $field_first = $this->field_first;        
+        $field_break = $this->field_break;        
+        $storage = $this->file_storage;
+
         foreach ($table_field as $key => $value) {
-            if ($value->Field == $field_first){
+            $field_table = $value->Field;
+            $field_type = $value->Type;
+
+            if (in_array($key, $column_hidden)) {
                 continue;
             }
-            if ($value->Field == $field_break){
+            if ($field_table == $field_first){
+                continue;
+            }
+            if ($field_table == $field_break){
                 break;
             }                                            
-            $arr_field[] = $value->Field;
-            $arr_field_type[] = $value->Type;
+            $arr_field[] = $field_table;
+            $arr_field_type[] = $field_type;
             $count = count($arr_field); 
         }
 
         $insert = new ProductTrendModel();
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
-            $text_check = substr($text_type,0,3);
+            $text_check = substr($text_type, 0, 3);
             if ($text_check == "cha") {
-                if (!empty($request->file( $arr_field[$i]))) {
-                    $file                       = $request->file($arr_field[$i]);
-                    $fileName3                  = uniqid() . '.'. $file->getClientOriginalExtension();
-                    $path = Storage::putFileAs($this->file_storage, $request->file($arr_field[$i]), $fileName3);
+                if (!empty($request->file($arr_field[$i]))) {
+                    $file_temp_name = $request->file($arr_field[$i]);
+                    $file_name = uniqid() . '.'. $file_temp_name->getClientOriginalExtension();
+                    $path = Storage::putFileAs($storage, $request->file($arr_field[$i]), $file_name);
                     $field_db = $arr_field[$i]; 
-                    $insert->$field_db = $fileName3;
+                    $insert->$field_db = $file_name;
                 }                
             }else{
                 $field_db = $arr_field[$i];            
                 $insert->$field_db = $request->$field_db;            
-            }            
+            }
         }        
         $insert->save();
 
-        $result = preg_replace("/[^a-zA-Z]/", " ", $this->table); 
-        return redirect(url($this->index))->with("message", "Success created $result !");
+        $result = preg_replace("/[^a-zA-Z]/", " ", $table); 
+        return redirect(url($index))->with("message", "Success created $result !");
     }
 
     /**
@@ -181,35 +205,39 @@ class ProductTrendController extends Controller
      */
     public function edit($id)
     {
-        // for breadcrumb
+        $dropdown[0] = ProductCategoryModel::where('status', 1)->get();
+        $dropdown_option[0] = "product_category_name";
+        $dropdown[1] = ProductModel::where('status', 1)->get();
+        $dropdown_option[1] = "product_name";          
+        $data['dropdown'] = $dropdown;         
+        $data['dropdown_option'] = $dropdown_option;  
+
+        $table = $this->table;
+        $data['column_hidden'] = $this->column_hidden;
         $data['breadcrumb'] = array(
-            "home"=>array(
-                "text"=>"Dashboard", 
-                "link"=>"admin", 
-                "is_active"=>"inactive"
+            "home" => array(
+                "text" => "Dashboard", 
+                "link" => $this->base,
+                "is_active" => "inactive"
             ),
-            "general_information"=>array(
-                "text"=>"Product Trend", 
-                "link"=>$this->index, 
-                "is_active"=>"inactive"
+            "product_trend" => array(
+                "text" => "Product Trend", 
+                "link" => $this->index, 
+                "is_active" => "inactive"
             ),
-            "edit_general_information"=>array(
-                "text"=>"Edit Product Trend", 
-                "link"=>"", 
-                "is_active"=>"active"
+            "edit_product_trend" => array(
+                "text" => "Edit Product Trend", 
+                "link" => "", 
+                "is_active" => "active"
             )            
         );
         $data['title'] = "Edit Product Trend";
         $data['update'] = $this->update;
         $data['index'] = $this->index;
-
         $data['id'] = $id;
-        $table = $this->table;
         $data['table_field'] = DB::select("DESCRIBE $table");
-        $data['field_first'] = "id";
-        $data['field_break'] = "created_at";
-        $data['field_'] = "created_at";
-
+        $data['field_first'] = $this->field_first;
+        $data['field_break'] = $this->field_break;
         $data['table_content'] = ProductTrendModel::find($id);
 
         return view('backend.single_page.edit', $data);
@@ -225,42 +253,53 @@ class ProductTrendController extends Controller
     public function update(Request $request, $id)
     {
         $table = $this->table;
+        $index = $this->index;
+
+        $column_hidden = [];
         $table_field = DB::select("DESCRIBE $table");
-        $field_break = "created_at";
-        $field_first = "id";
+        $field_break = $this->field_break;
+        $field_first = $this->field_first;
+        $storage = $this->file_storage;
+
         foreach ($table_field as $key => $value) {
-            if ($value->Field == $field_first){
+            $field_table = $value->Field;
+            $field_type = $value->Type;
+
+            if (in_array($key, $column_hidden)) {
                 continue;
             }
-            if ($value->Field == $field_break){
+            if ($field_table == $field_first){
+                continue;
+            }
+            if ($field_table == $field_break){
                 break;
             }                                            
-            $arr_field[] = $value->Field;
-            $arr_field_type[] = $value->Type;
+            $arr_field[] = $field_table;
+            $arr_field_type[] = $field_type;
             $count = count($arr_field); 
         }
 
         $update = ProductTrendModel::find($id);
         for ($i=0; $i < $count; $i++) { 
             $text_type = $arr_field_type[$i];
-            $text_check = substr($text_type,0,3);
+            $text_check = substr($text_type, 0, 3);
             if ($text_check == "cha") {
                 if (!empty($request->file( $arr_field[$i]))) {
-                    $file                       = $request->file($arr_field[$i]);
-                    $fileName3                  = uniqid() . '.'. $file->getClientOriginalExtension();
-                    $path = Storage::putFileAs($this->file_storage, $request->file($arr_field[$i]), $fileName3);
+                    $file_temp_name = $request->file($arr_field[$i]);
+                    $file_name = uniqid() . '.'. $file_temp_name->getClientOriginalExtension();
+                    $path = Storage::putFileAs($storage, $request->file($arr_field[$i]), $file_name);
                     $field_db = $arr_field[$i]; 
-                    $update->$field_db = $fileName3;
+                    $update->$field_db = $file_name;
                 }                
             }else{
                 $field_db = $arr_field[$i];            
                 $update->$field_db = $request->$field_db;            
-            }            
+            }             
         }        
         $update->update();
 
-        $result = preg_replace("/[^a-zA-Z]/", " ", $this->table); 
-        return redirect(url($this->index))->with("message", "Success updated $result !");
+        $result = preg_replace("/[^a-zA-Z]/", " ", $table); 
+        return redirect(url($index))->with("message", "Success updated $result !");
     }
 
     /**
@@ -271,10 +310,13 @@ class ProductTrendController extends Controller
      */
     public function destroy($id)
     {
+        $table = $this->table;
+        $index = $this->index;
+
         $findtodelete = ProductTrendModel::find($id);
         $findtodelete->delete();
 
-        $result = preg_replace("/[^a-zA-Z]/", " ", $this->table); 
+        $result = preg_replace("/[^a-zA-Z]/", " ", $table); 
         return redirect(url($this->index))->with("info", "Success deleted $result !");        
     }
 }

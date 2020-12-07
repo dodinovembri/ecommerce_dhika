@@ -47,7 +47,7 @@
 
                             	    if ($text_null == "NO") { $is_required = 1; }else{ $is_required = 0; }
 
-                                    if ($text_check == "int" || $text_check == "big") { ?>
+                                    if ($text_check == "big") { ?>
                                         <div class="form-group row">
                                             <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> {{ ucfirst($text_name) }}</label>
                                             <?php if (isset($dropdown)) { $content = $dropdown_option[$j]; ?>
