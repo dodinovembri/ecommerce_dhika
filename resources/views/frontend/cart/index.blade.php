@@ -39,7 +39,7 @@
 	                                    <td class="product-price">Rp. {{ number_format($value->product->price, 2, ',', '.') }}</td>
 	                                    <td class="product_quantity"><label>Quantity</label> <input min="1" max="{{ $value->product_stock->stock }}" name="qty[]" value="{{ $value->qty }}" type="number"></td>
 	                                    <td class="product_name"><label>{{ $value->product_stock->stock }}</label> </td>
-	                                    <td class="product_total">{{ $value->subtotal }}</td>
+	                                    <td class="product_total">Rp. {{ number_format($value->subtotal, 2, ',', '.') }}</td>
 	                                </tr>
                             	<?php } ?>
                             </tbody>
@@ -59,34 +59,52 @@
                             <div class="coupon_code left">
                                 <h3>Coupon</h3>
                                 <div class="coupon_inner">   
+                                  <form method="POST" action="{{ url('frontend/voucher/apply') }}">
+                                    @csrf
                                     <p>Enter your coupon code if you have one.</p>                                
-                                    <input placeholder="Coupon code" type="text">
+                                    <input placeholder="Coupon code" type="text" name="voucher_code">
                                     <button type="submit">Apply coupon</button>
+                                  </form>
                                 </div>    
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="coupon_code right">
                                 <h3>Cart Totals</h3>
-                                <div class="coupon_inner">
-                                   <div class="cart_subtotal">
-                                       <p>Subtotal</p>
-                                       <p class="cart_amount">Rp. {{ number_format($cart->total_price, 2, ',', '.') }}</p>
-                                   </div>
-                                   <div class="cart_subtotal ">
-                                       <p>Shipping</p>
-                                       <p class="cart_amount"><span>Flat Rate:</span>Rp. {{ number_format($cart->total_price, 2, ',', '.') }}</p>
-                                   </div>
-                                   <a href="#">Calculate shipping</a>
-
-                                   <div class="cart_subtotal">
-                                       <p>Total</p>
-                                       <p class="cart_amount">Rp. {{ number_format($cart->total_price, 2, ',', '.') }}</p>
-                                   </div>
-                                   <div class="checkout_btn">
-                                       <a href="#">Proceed to Checkout</a>
-                                   </div>
-                                </div>
+                                <form method="POST" action="{{ url('frontend/checkout/create') }}">
+                                  @csrf
+                                  <div class="coupon_inner">
+                                     <div class="cart_subtotal">
+                                         <p>Subtotal</p>
+                                         <p class="cart_amount">Rp. {{ number_format($cart->total_price, 2, ',', '.') }}</p>
+                                     </div>
+                                     <?php if (!empty(session()->get('user_voucher_code'))) { ?>
+                                       <div class="cart_subtotal ">
+                                           <p>Voucher</p>
+                                           <?php 
+                                            $total = $cart->total_price;
+                                            $voucher_percentage = session()->get('user_voucher_percentage');
+                                            $total_voucher = $voucher_percentage/100 * $total; 
+                                          ?>
+                                           <p class="cart_amount"><span>Total Voucher Apply:</span>Rp. {{ number_format($total_voucher, 2, ',', '.') }}</p>
+                                       </div>                                     
+                                     <?php }else{
+                                      $total_voucher = 0;
+                                     } ?> 
+                                     <hr>
+                                     <input type="hidden" name="total_voucher" value="{{ $total_voucher }}">
+                                     <input type="hidden" name="total_price" value="{{ $cart->total_price }}">
+                                     <div class="cart_subtotal">
+                                         <p>Total</p>
+                                         <?php $grand_total = $cart->total_price - $total_voucher ?>
+                                         <p class="cart_amount">Rp. {{ number_format($grand_total, 2, ',', '.') }}</p>
+                                     </div>
+                                     <input type="hidden" name="grand_total" value="{{ $grand_total }}">
+                                     <div class="checkout_btn">
+                                         <button type="submit">Proceed to Checkout</button>
+                                     </div>
+                                  </div>
+                                </form>
                             </div>
                         </div>
                     </div>

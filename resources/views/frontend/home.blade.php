@@ -158,10 +158,8 @@
 										</div>
 										<div class="action_links">
 											<ul>
-												<li class="add_to_cart"><a href="cart.html" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
-												<li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li>
-												<li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><span class="lnr lnr-heart"></span></a></li>  
-												<li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li>
+												<li class="add_to_cart"><a href="{{ url('frontend/cart/create', $value->product_id) }}" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
+												<li class="wishlist"><a href="{{ url('frontend/wishlist/create', $value->product->id) }}" title="Add to Wishlist"><span class="lnr lnr-heart"></span></a></li>  
 											</ul>
 										</div>
 									</div>
@@ -212,10 +210,8 @@
 											<p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
 											<div class="action_links">
 												<ul>
-													<li class="add_to_cart"><a href="cart.html" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
-													<li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li>
-													<li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><span class="lnr lnr-heart"></span></a></li>  
-													<li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li>
+													<li class="add_to_cart"><a href="{{ url('frontend/cart/create', $value->product_id) }}" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
+													<li class="wishlist"><a href="{{ url('frontend/wishlist/create', $value->product->id) }}" title="Add to Wishlist"><span class="lnr lnr-heart"></span></a></li>  
 												</ul>
 											</div>
 											<div class="price_box"> 
@@ -241,7 +237,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section_title">
-					<p>Our recent articles about Organic</p>
+					<p>Our recent articles</p>
 					<h2>Our Blog Posts</h2>
 				</div>
 			</div>
@@ -293,18 +289,16 @@
 							<article class="single_product">
 								<figure>
 									<div class="product_thumb">
-										<a class="primary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_image }}" alt=""></a>
-										<a class="secondary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_sub_image }}" alt=""></a>
+										<a class="primary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_image }}" alt="" style="height: 100px"></a>
+										<a class="secondary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_sub_image }}" alt="" style="height: 100px"></a>
 									</div>
 									<figcaption class="product_content">
 										<h4 class="product_name"><a href="product-details.html">{{ $value->product_name }}</a></h4>
 										<p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
 										<div class="action_links">
 											<ul>
-												<li class="add_to_cart"><a href="cart.html" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
-												<li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li>
-												<li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><span class="lnr lnr-heart"></span></a></li>  
-												<li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li>
+												<li class="add_to_cart"><a href="{{ url('frontend/cart/create', $value->id) }}" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
+												<li class="wishlist"><a href="{{ url('frontend/wishlist/create', $value->id) }}" title="Add to Wishlist"><span class="lnr lnr-heart"></span></a></li>  
 											</ul>
 										</div>
 										<div class="price_box"> 

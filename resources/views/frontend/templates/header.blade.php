@@ -47,16 +47,17 @@
 					<div class="col-lg-10 col-md-6 col-sm-7 col-8">
 						<div class="header_right_info">
 							<div class="search_container mobail_s_none">
-								<form action="#">
+								<form action="{{ url('frontend/shop/search') }}" method="POST">
+									@csrf
 									<div class="hover_category">
-										<select class="select_option" name="select" id="categori2">
+										<select class="select_option" name="product_category_id" id="categori2">
 											<?php foreach ($product_category as $key => $value) { ?>
 												<option value="{{ $value->id }}">{{ $value->product_category_name }}</option>
 											<?php } ?>
 										</select>                        
 									</div>
 									<div class="search_box">
-										<input placeholder="Search product..." type="text">
+										<input placeholder="Search product..." type="text" name="search">
 										<button type="submit"><span class="lnr lnr-magnifier"></span></button>
 									</div>
 								</form>
@@ -70,9 +71,9 @@
 									</ul>
 								</div>
 								<?php       
-									$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';  
-									$count_wishlist = App\Models\WishlistModel::where('status', 1)->where('user_id', $user_id)->count();
-        							$count_cart = App\Models\CartDetailModel::where('status', 1)->where('user_id', $user_id)->count(); ?>
+								$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';  
+								$count_wishlist = App\Models\WishlistModel::where('status', 1)->where('user_id', $user_id)->count();
+								$count_cart = App\Models\CartDetailModel::where('status', 1)->where('user_id', $user_id)->count(); ?>
 								<div class="header_account_list header_wishlist">
 									<a href="{{ url('frontend/wishlist/index') }}"><span class="lnr lnr-heart"></span> <span class="item_count">{{ $count_wishlist }}</span> </a>
 								</div>
@@ -144,85 +145,73 @@
 											<div class="cart_button">
 												<a href="{{ url('frontend/cart/index') }}"><i class="fa fa-shopping-cart"></i> View cart</a>
 											</div>
-											<?php 
-											$user_id = isset(auth()->user()->id) ? auth()->user()->id : '';
-											if (!empty($user_id)) { 
-												$cart_data = App\Models\CartModel::where('user_id', $user_id)->first();
-												if (!empty($cart_data)) {
-													?>
-													<div class="cart_button">
-														<a href="{{ url('frontend/checkout/index') }}"><i class="fa fa-sign-in"></i> Checkout</a>
-													</div>
-												<?php }
-													}
-												?>
-												</div>										 
-											</div>
-											<!--mini cart end-->
-										</div>
+										</div>										 
 									</div>
+									<!--mini cart end-->
 								</div>
 							</div>
+						</div>
+					</div>
 
+				</div>
+			</div>
+		</div>
+		<div class="header_bottom sticky-header">
+			<div class="container">  
+				<div class="row align-items-center">
+					<div class="col-12 col-md-6 mobail_s_block">
+						<div class="search_container">
+							<form action="#">
+								<div class="hover_category">
+									<select class="select_option" name="select" id="categori2">
+										<?php foreach ($product_category as $key => $value) { ?>
+											<option value="{{ $value->id }}">{{ $value->product_category_name }}</option>
+										<?php } ?>
+									</select>                        
+								</div>
+								<div class="search_box">
+									<input placeholder="Search product..." type="text">
+									<button type="submit"><span class="lnr lnr-magnifier"></span></button>
+								</div>
+							</form>
 						</div>
 					</div>
-				</div>
-				<div class="header_bottom sticky-header">
-					<div class="container">  
-						<div class="row align-items-center">
-							<div class="col-12 col-md-6 mobail_s_block">
-								<div class="search_container">
-									<form action="#">
-										<div class="hover_category">
-											<select class="select_option" name="select" id="categori2">
-												<?php foreach ($product_category as $key => $value) { ?>
-													<option value="{{ $value->id }}">{{ $value->product_category_name }}</option>
-												<?php } ?>
-											</select>                        
-										</div>
-										<div class="search_box">
-											<input placeholder="Search product..." type="text">
-											<button type="submit"><span class="lnr lnr-magnifier"></span></button>
-										</div>
-									</form>
-								</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="categories_menu">
+							<div class="categories_title">
+								<h2 class="categori_toggle">All Cattegories</h2>
 							</div>
-							<div class="col-lg-3 col-md-6">
-								<div class="categories_menu">
-									<div class="categories_title">
-										<h2 class="categori_toggle">All Cattegories</h2>
-									</div>
-									<div class="categories_menu_toggle">
-										<ul>
-											<?php foreach ($product_category as $key => $value) { ?>
-												<li><a href="{{ $value->id }}"> {{ $value->product_category_name }}</a></li>
-											<?php } ?>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<!--main menu start-->
-								<div class="main_menu menu_position"> 
-									<nav>  
-										<ul>
-											<li><a href="{{ url('/') }}"> Home</a></li>
-											<li><a href="contact.html"> Shop</a></li>
-											<li><a href="contact.html"> Blog</a></li>
-											<li><a href="contact.html"> Contact Us</a></li>
-										</ul>  
-									</nav> 
-								</div>
-								<!--main menu end-->
-							</div>
-							<div class="col-lg-3">
-								<div class="call-support">
-									<p><a href="tel:(08)23456789">{{ $shop_information->shop_call_us }}</a> Customer Support</p>
-								</div>
+							<div class="categories_menu_toggle">
+								<ul>
+									<?php foreach ($product_category as $key => $value) { ?>
+										<li><a href="{{ $value->id }}"> {{ $value->product_category_name }}</a></li>
+									<?php } ?>
+								</ul>
 							</div>
 						</div>
 					</div>
+					<div class="col-lg-6">
+						<!--main menu start-->
+						<div class="main_menu menu_position"> 
+							<nav>  
+								<ul>
+									<li><a href="{{ url('/') }}"> Home</a></li>
+									<li><a href="{{ url('frontend/my_order/index') }}"> My Order</a></li>
+									<li><a href="contact.html"> Blog</a></li>
+									<li><a href="contact.html"> Contact Us</a></li>
+								</ul>  
+							</nav> 
+						</div>
+						<!--main menu end-->
+					</div>
+					<div class="col-lg-3">
+						<div class="call-support">
+							<p><a href="tel:(08)23456789">{{ $shop_information->shop_call_us }}</a> Customer Support</p>
+						</div>
+					</div>
 				</div>
-			</div> 
-		</header>
+			</div>
+		</div>
+	</div> 
+</header>
 <!--header area end-->

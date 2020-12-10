@@ -15,6 +15,7 @@ use App\Models\SocialMediaModel;
 use App\Models\ProductCategoryModel;
 use App\Models\PartnerModel;
 use App\Models\ShopInformationModel;
+use App\Models\VoucherModel;
 
 class CartController extends Controller
 {
@@ -31,13 +32,20 @@ class CartController extends Controller
 
     public function index()
     {
+        $user_id = auth()->user()->id;
+        $user_voucher = VoucherModel::where('user_id', $user_id)->where('status', 1)->first();
+        if (!empty($user_id)) {
+            $data['user_voucher'] = $user_voucher;
+        }else{
+            $data['user_voucher'] = "";
+        }
         $data['languange'] = LanguangeModel::where('status', 1)->get();
         $data['currency'] = CurrencyModel::where('status', 1)->get();
         $data['social_media'] = SocialMediaModel::where('status', 1)->get();
         $data['product_category'] = ProductCategoryModel::where('status', 1)->get();
         $data['partner'] = PartnerModel::where('status', 1)->get();
         $data['shop_information'] = ShopInformationModel::where('status', 1)->first();
-        $data['cart_detail'] = CartDetailModel::with('product')->with('product_stock')->where('status', 1)->get();
+        $data['cart_detail'] = CartDetailModel::with('product')->with('product_stock')->where('status', 1)->where('user_id', $user_id)->get();
         $data['cart'] = CartModel::where('user_id', auth()->user()->id)->first();
 
         return view('frontend.cart.index', $data);

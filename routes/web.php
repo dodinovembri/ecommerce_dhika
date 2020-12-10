@@ -42,6 +42,45 @@ Route::name('frontend.')->group(function () {
 		Route::post('frontend/wishlist/update/{id}', 'Frontend\WishlistController@update')->name('update');
 		Route::get('frontend/wishlist/destroy/{id}', 'Frontend\WishlistController@destroy')->name('destroy');
 	});	
+	Route::name('voucher.')->group(function () {
+		Route::post('frontend/voucher/apply', 'Frontend\VoucherController@apply')->name('apply');
+		Route::get('frontend/voucher/index', 'Frontend\VoucherController@index')->name('index');
+		Route::get('frontend/voucher/create/{id}', 'Frontend\VoucherController@create')->name('create');
+		Route::post('frontend/voucher/store', 'Frontend\VoucherController@store')->name('store');
+		Route::get('frontend/voucher/show/{id}', 'Frontend\VoucherController@show')->name('show');
+		Route::get('frontend/voucher/edit/{id}', 'Frontend\VoucherController@edit')->name('edit');
+		Route::post('frontend/voucher/update/{id}', 'Frontend\VoucherController@update')->name('update');
+		Route::get('frontend/voucher/destroy/{id}', 'Frontend\VoucherController@destroy')->name('destroy');
+	});		
+	Route::name('checkout.')->group(function () {
+		Route::get('frontend/checkout/index', 'Frontend\CheckoutController@index')->name('index');
+		Route::post('frontend/checkout/create', 'Frontend\CheckoutController@create')->name('create');
+		Route::post('frontend/checkout/store', 'Frontend\CheckoutController@store')->name('store');
+		Route::get('frontend/checkout/show/{id}', 'Frontend\CheckoutController@show')->name('show');
+		Route::get('frontend/checkout/edit/{id}', 'Frontend\CheckoutController@edit')->name('edit');
+		Route::post('frontend/checkout/update/{id}', 'Frontend\CheckoutController@update')->name('update');
+		Route::get('frontend/checkout/destroy/{id}', 'Frontend\CheckoutController@destroy')->name('destroy');
+		Route::get('frontend/checkout/confirmation', 'Frontend\CheckoutController@confirmation')->name('confirmation');
+	});
+	Route::name('my_order.')->group(function () {
+		Route::get('frontend/my_order/index', 'Frontend\MyOrderController@index')->name('index');
+		Route::get('frontend/my_order/create', 'Frontend\MyOrderController@create')->name('create');
+		Route::post('frontend/my_order/store', 'Frontend\MyOrderController@store')->name('store');
+		Route::get('frontend/my_order/show/{id}', 'Frontend\MyOrderController@show')->name('show');
+		Route::get('frontend/my_order/edit/{id}', 'Frontend\MyOrderController@edit')->name('edit');
+		Route::post('frontend/my_order/update/{id}', 'Frontend\MyOrderController@update')->name('update');
+		Route::get('frontend/my_order/destroy/{id}', 'Frontend\MyOrderController@destroy')->name('destroy');
+	});	
+	Route::name('shop.')->group(function () {
+		Route::post('frontend/shop/search', 'Frontend\ShopController@search')->name('search');
+		Route::get('frontend/shop/index', 'Frontend\ShopController@index')->name('index');
+		Route::get('frontend/shop/create', 'Frontend\ShopController@create')->name('create');
+		Route::post('frontend/shop/store', 'Frontend\ShopController@store')->name('store');
+		Route::get('frontend/shop/show/{id}', 'Frontend\ShopController@show')->name('show');
+		Route::get('frontend/shop/edit/{id}', 'Frontend\ShopController@edit')->name('edit');
+		Route::post('frontend/shop/update/{id}', 'Frontend\ShopController@update')->name('update');
+		Route::get('frontend/shop/destroy/{id}', 'Frontend\ShopController@destroy')->name('destroy');
+	});		
 });
 
 Route::name('admin.')->group(function () {

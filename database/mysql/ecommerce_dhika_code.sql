@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2020 at 12:48 AM
+-- Generation Time: Dec 10, 2020 at 05:46 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -95,7 +95,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `total_price`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(3, 1, 489023.00, 1, '2020-12-06 02:25:16', '2020-12-06 08:47:25', 1, 1);
+(17, 1, 23234.00, 1, '2020-12-10 09:40:32', '2020-12-10 09:40:32', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,8 +123,7 @@ CREATE TABLE `cart_detail` (
 --
 
 INSERT INTO `cart_detail` (`id`, `user_id`, `cart_id`, `product_id`, `qty`, `price`, `subtotal`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(5, 1, 3, 2, 1, 23234.00, 23234.00, 1, '2020-12-06 02:25:16', '2020-12-06 04:01:30', 1, 1),
-(6, 1, 3, 1, 1, 465789.00, 465789.00, 1, '2020-12-06 02:35:21', '2020-12-06 08:47:25', 1, 1);
+(26, 1, 17, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 09:40:32', '2020-12-10 09:40:32', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -220,16 +219,38 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `order_detail` (
   `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `order_id` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL,
   `qty` bigint(20) DEFAULT NULL,
   `price` double(18,2) DEFAULT NULL,
+  `subtotal` double(18,2) NOT NULL,
   `status` tinyint(4) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
   `updated_by` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`id`, `user_id`, `order_id`, `product_id`, `qty`, `price`, `subtotal`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 1, 1, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 06:09:48', '2020-12-10 06:09:48', 1, NULL),
+(2, 1, 1, 1, 1, 465789.00, 465789.00, 1, '2020-12-10 06:09:48', '2020-12-10 06:09:48', 1, NULL),
+(3, 1, 2, 2, 2, 23234.00, 46468.00, 1, '2020-12-10 06:41:11', '2020-12-10 06:41:11', 1, NULL),
+(4, 1, 3, 1, 1, 465789.00, 465789.00, 1, '2020-12-10 06:46:31', '2020-12-10 06:46:31', 1, NULL),
+(5, 1, 4, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 06:56:01', '2020-12-10 06:56:01', 1, NULL),
+(6, 1, 5, 1, 3, 465789.00, 1397367.00, 1, '2020-12-10 08:02:52', '2020-12-10 08:02:52', 1, NULL),
+(7, 1, 5, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 08:02:52', '2020-12-10 08:02:52', 1, NULL),
+(8, 1, 6, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 08:04:19', '2020-12-10 08:04:19', 1, NULL),
+(9, 1, 6, 1, 1, 465789.00, 465789.00, 1, '2020-12-10 08:04:19', '2020-12-10 08:04:19', 1, NULL),
+(10, 1, 7, 2, 2, 23234.00, 46468.00, 1, '2020-12-10 08:05:05', '2020-12-10 08:05:05', 1, NULL),
+(11, 1, 8, 1, 1, 465789.00, 465789.00, 1, '2020-12-10 08:26:28', '2020-12-10 08:26:28', 1, NULL),
+(12, 1, 9, 1, 2, 465789.00, 931578.00, 1, '2020-12-10 08:31:28', '2020-12-10 08:31:28', 1, NULL),
+(13, 1, 10, 1, 1, 465789.00, 465789.00, 1, '2020-12-10 08:41:02', '2020-12-10 08:41:03', 1, NULL),
+(14, 1, 10, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 08:41:03', '2020-12-10 08:41:03', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -242,13 +263,30 @@ CREATE TABLE `order_list` (
   `user_id` bigint(20) NOT NULL,
   `total_price` double(18,2) DEFAULT NULL,
   `payment_method_id` bigint(20) DEFAULT NULL,
-  `total_point_used` bigint(20) DEFAULT NULL,
+  `total_point_used` double(18,2) DEFAULT NULL,
+  `total_voucher` double(18,2) DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
   `updated_by` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_list`
+--
+
+INSERT INTO `order_list` (`id`, `user_id`, `total_price`, `payment_method_id`, `total_point_used`, `total_voucher`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 1, 489023.00, 1, NULL, 24451.15, 2, '2020-12-10 06:09:48', '2020-12-10 06:09:48', 1, NULL),
+(2, 1, 46468.00, 1, NULL, NULL, 2, '2020-12-10 06:41:11', '2020-12-10 06:41:11', 1, NULL),
+(3, 1, 465789.00, 1, NULL, NULL, 2, '2020-12-10 06:46:31', '2020-12-10 06:46:31', 1, NULL),
+(4, 1, 23234.00, 1, NULL, NULL, 2, '2020-12-10 06:56:01', '2020-12-10 06:56:01', 1, NULL),
+(5, 1, 1420601.00, 1, NULL, 71030.05, 2, '2020-12-10 08:02:52', '2020-12-10 08:02:52', 1, NULL),
+(6, 1, 465789.00, 1, NULL, NULL, 2, '2020-12-10 08:04:18', '2020-12-10 08:04:18', 1, NULL),
+(7, 1, 46468.00, 1, NULL, NULL, 2, '2020-12-10 08:05:05', '2020-12-10 08:05:05', 1, NULL),
+(8, 1, 465789.00, 1, NULL, NULL, 2, '2020-12-10 08:26:28', '2020-12-10 08:26:28', 1, NULL),
+(9, 1, 931578.00, 1, NULL, NULL, 2, '2020-12-10 08:31:27', '2020-12-10 08:31:27', 1, NULL),
+(10, 1, 489023.00, 1, NULL, NULL, 2, '2020-12-10 08:41:02', '2020-12-10 08:41:02', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -304,6 +342,13 @@ CREATE TABLE `payment_method` (
   `updated_by` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `payment_method`
+--
+
+INSERT INTO `payment_method` (`id`, `payment_method_code`, `payment_method_name`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'CA', 'Cash', 1, '2020-12-09 08:51:38', '2020-12-09 08:51:38', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -318,6 +363,8 @@ CREATE TABLE `product` (
   `price` double(18,2) DEFAULT NULL,
   `product_image` char(50) DEFAULT NULL,
   `product_sub_image` char(50) DEFAULT NULL,
+  `badge_text` varchar(30) DEFAULT NULL,
+  `badge_sub_text` varchar(30) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -330,9 +377,9 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `product_code`, `product_name`, `product_category_id`, `price`, `product_image`, `product_sub_image`, `description`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, '11190', 'prew', 4, 465789.00, '5fcc217b7ca17.jpg', '5fcc217b80afb.jpg', 'qweqw', 1, '2020-12-05 17:10:35', '2020-12-05 17:10:35', NULL, NULL),
-(2, '093', 'prew', 4, 23234.00, '5fcc2da437000.jpg', '5fcc2da43a0eb.jpg', 'dsfsdf', 1, '2020-12-05 18:02:28', '2020-12-05 18:02:28', NULL, NULL);
+INSERT INTO `product` (`id`, `product_code`, `product_name`, `product_category_id`, `price`, `product_image`, `product_sub_image`, `badge_text`, `badge_sub_text`, `description`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, '11190', 'prew', 4, 465789.00, '5fcc217b7ca17.jpg', '5fcc217b80afb.jpg', 'NEW', 'SALE', 'qweqw', 1, '2020-12-05 17:10:35', '2020-12-05 17:10:35', NULL, NULL),
+(2, '093', 'prew', 4, 23234.00, '5fcc2da437000.jpg', '5fcc2da43a0eb.jpg', 'NEW\r\n', 'SALE', 'dsfsdf', 1, '2020-12-05 18:02:28', '2020-12-05 18:02:28', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -595,6 +642,7 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -605,8 +653,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Dodi Novembri', 'dodinovembri32@gmail.com', '2020-11-26 14:33:57', '$2y$10$0Y6NB/N3U3PKDuRnpzJV8.y1vRryU8XfcKzOYi6eJb7EUJZSfvbYa', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `status`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dodi Novembri', 'dodinovembri32@gmail.com', '2020-11-26 14:33:57', 1, '$2y$10$0Y6NB/N3U3PKDuRnpzJV8.y1vRryU8XfcKzOYi6eJb7EUJZSfvbYa', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -617,6 +665,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 CREATE TABLE `voucher` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
+  `voucher_code` varchar(50) NOT NULL,
   `voucher_percentage` int(11) NOT NULL,
   `voucher_description` text NOT NULL,
   `status` tinyint(4) DEFAULT 1,
@@ -625,6 +674,13 @@ CREATE TABLE `voucher` (
   `created_by` bigint(20) DEFAULT NULL,
   `updated_by` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `voucher`
+--
+
+INSERT INTO `voucher` (`id`, `user_id`, `voucher_code`, `voucher_percentage`, `voucher_description`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 1, 'XBAG', 5, 'This voucher is used to pay transactions', 0, '2020-12-09 06:15:26', '2020-12-10 08:04:19', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -830,13 +886,13 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `cart_detail`
 --
 ALTER TABLE `cart_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `currency`
@@ -866,13 +922,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `order_list`
 --
 ALTER TABLE `order_list`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `partner`
@@ -884,7 +940,7 @@ ALTER TABLE `partner`
 -- AUTO_INCREMENT for table `payment_method`
 --
 ALTER TABLE `payment_method`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -962,13 +1018,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `voucher`
 --
 ALTER TABLE `voucher`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
