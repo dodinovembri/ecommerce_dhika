@@ -160,7 +160,12 @@ class CartController extends Controller
                 }
             }         
 
-            return redirect(url('/'));
+            $search = session()->get('search');
+            if ($search == 1) {
+                return redirect('frontend/shop/searchdirect');
+            }else{
+                return redirect(url('/'));
+            }
         }
     }
 

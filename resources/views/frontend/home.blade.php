@@ -51,7 +51,13 @@
 	</div>
 </div>
 <!--shipping area end-->
-
+<?php 
+	session([
+	    'search' => 0,
+	    'searchbyfilter' => 0,
+	    'sort' => ''
+	]);
+?>
 <!--product area start-->
 <div class="product_area  mb-64">
 	<div class="container">
@@ -154,7 +160,7 @@
 											<span class="label_new">{{ $value->badge_sub_text }}</span>
 										</div>
 										<div class="product_timing">
-											<div data-countdown="2021/12/15"></div>
+											<div data-countdown="{{ $value->valid_until }}"></div>
 										</div>
 										<div class="action_links">
 											<ul>

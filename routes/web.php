@@ -23,6 +23,7 @@ Auth::routes([
 Route::get('/', 'Frontend\FrontendController@index')->name('home');
 Route::get('/frontend', 'Frontend\FrontendController@index')->name('home');
 Route::get('/admin', 'Backend\DashboardController@index')->name('dashboard');
+Route::get('/home', 'Backend\DashboardController@index')->name('dashboard');
 Route::get('/dashboard', 'Backend\DashboardController@index')->name('dashboard');
 
 Route::name('frontend.')->group(function () {
@@ -73,6 +74,10 @@ Route::name('frontend.')->group(function () {
 	});	
 	Route::name('shop.')->group(function () {
 		Route::post('frontend/shop/search', 'Frontend\ShopController@search')->name('search');
+		Route::get('frontend/shop/searchdirect', 'Frontend\ShopController@searchdirect')->name('searchdirect');
+		Route::post('frontend/shop/searchbyfilter', 'Frontend\ShopController@searchbyfilter')->name('searchbyfilter');
+		Route::get('frontend/shop/searchbyproduct/{id}', 'Frontend\ShopController@searchbyproduct')->name('searchbyproduct');
+		Route::get('frontend/shop/searchbycategory/{id}', 'Frontend\ShopController@searchbycategory')->name('searchbycategory');
 		Route::get('frontend/shop/index', 'Frontend\ShopController@index')->name('index');
 		Route::get('frontend/shop/create', 'Frontend\ShopController@create')->name('create');
 		Route::post('frontend/shop/store', 'Frontend\ShopController@store')->name('store');
@@ -80,6 +85,16 @@ Route::name('frontend.')->group(function () {
 		Route::get('frontend/shop/edit/{id}', 'Frontend\ShopController@edit')->name('edit');
 		Route::post('frontend/shop/update/{id}', 'Frontend\ShopController@update')->name('update');
 		Route::get('frontend/shop/destroy/{id}', 'Frontend\ShopController@destroy')->name('destroy');
+	});		
+	Route::name('register.')->group(function () {
+		Route::get('frontend/register/index', 'Frontend\RegisterController@index')->name('index');
+		Route::get('frontend/register/create', 'Frontend\RegisterController@create')->name('create');
+		Route::post('frontend/register/store', 'Frontend\RegisterController@store')->name('store');
+	});		
+	Route::name('register.')->group(function () {
+		Route::get('frontend/register/index', 'Frontend\RegisterController@index')->name('index');
+		Route::get('frontend/register/create', 'Frontend\RegisterController@create')->name('create');
+		Route::post('frontend/register/store', 'Frontend\RegisterController@store')->name('store');
 	});		
 });
 

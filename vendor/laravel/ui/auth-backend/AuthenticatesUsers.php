@@ -7,6 +7,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+use App\Models\LanguangeModel;
+use App\Models\CurrencyModel;
+use App\Models\SocialMediaModel;
+use App\Models\ProductCategoryModel;
+use App\Models\ShopInformationModel;
+
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
@@ -18,7 +24,13 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        $data['languange'] = LanguangeModel::where('status', 1)->get();
+        $data['currency'] = CurrencyModel::where('status', 1)->get();
+        $data['social_media'] = SocialMediaModel::where('status', 1)->get();
+        $data['product_category'] = ProductCategoryModel::where('status', 1)->get();
+        $data['shop_information'] = ShopInformationModel::where('status', 1)->first();
+
+        return view('auth.login', $data);
     }
 
     /**

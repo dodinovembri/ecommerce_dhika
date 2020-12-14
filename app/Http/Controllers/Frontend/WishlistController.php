@@ -47,6 +47,7 @@ class WishlistController extends Controller
      */
     public function create($id)
     {
+        $search = session()->get('search');
         if (empty( auth()->user()->id)) {
             return redirect(url('login'));
         }else{
@@ -59,7 +60,11 @@ class WishlistController extends Controller
                 $insert->created_at =  date("Y-m-d H:i:s");
                 $insert->save();
 
-                return redirect(url('/'));
+                if ($search == 1) {
+                    return redirect('frontend/shop/searchdirect');
+                }else{
+                    return redirect(url('/'));
+                }
             }else{
                 $update = $cek;
                 $update->product_id = $id;
@@ -67,7 +72,11 @@ class WishlistController extends Controller
                 $update->updated_at =  date("Y-m-d H:i:s");
                 $update->update();
 
-                return redirect(url('/'));
+                if ($search == 1) {
+                    return redirect('frontend/shop/searchdirect');
+                }else{
+                    return redirect(url('/'));
+                }
             }
         }
     }

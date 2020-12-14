@@ -67,7 +67,7 @@
 									<ul>
 										<li><a href="{{ url('frontend/register/index') }}">Register</a></li>
 										<li><span>/</span></li>
-										<li><a href="{{ url('frontend/login/index') }}">Login</a></li>
+										<li><a href="{{ route('login') }}">Login</a></li>
 									</ul>
 								</div>
 								<?php       
@@ -184,7 +184,7 @@
 							<div class="categories_menu_toggle">
 								<ul>
 									<?php foreach ($product_category as $key => $value) { ?>
-										<li><a href="{{ $value->id }}"> {{ $value->product_category_name }}</a></li>
+										<li><a href="{{ url('frontend/shop/searchbycategory', $value->id) }}"> {{ $value->product_category_name }}</a></li>
 									<?php } ?>
 								</ul>
 							</div>
@@ -197,8 +197,7 @@
 								<ul>
 									<li><a href="{{ url('/') }}"> Home</a></li>
 									<li><a href="{{ url('frontend/my_order/index') }}"> My Order</a></li>
-									<li><a href="contact.html"> Blog</a></li>
-									<li><a href="contact.html"> Contact Us</a></li>
+									<li><a href="#"> Contact Us</a></li>
 								</ul>  
 							</nav> 
 						</div>
@@ -206,7 +205,7 @@
 					</div>
 					<div class="col-lg-3">
 						<div class="call-support">
-							<p><a href="tel:(08)23456789">{{ $shop_information->shop_call_us }}</a> Customer Support</p>
+							<p><a href="tel:{{ $shop_information->shop_call_us }}">{{ $shop_information->shop_call_us }}</a> Customer Support</p>
 						</div>
 					</div>
 				</div>

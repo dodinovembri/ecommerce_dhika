@@ -40,6 +40,9 @@ class AdvantageController extends Controller
 
     public function __construct()
     {
+                if (auth()->user()->role == 2) {
+                  return redirect(route('/'));
+              }   
         $this->middleware('auth');
     }
 

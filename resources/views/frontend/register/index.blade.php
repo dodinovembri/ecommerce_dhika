@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="off_canvars_overlay">
-  
+	
 </div>
 
 @include('frontend.templates.header')
@@ -26,18 +26,26 @@
                             {{ session()->get('error') }}
                         </div><br>
                         @endif                        
-                        <h2>login</h2>
-                        <form action="{{ route('login') }}" method="POST">
-                            @csrf                           <p>   
+                        <h2>Register</h2>
+                        <form action="{{ url('frontend/register/store') }}" method="POST">
+                            @csrf
+                            <p>   
+                                <label>Full Name  <span>*</span></label>
+                                <input type="text" name="name">
+                             </p>                            <p>   
                                 <label>Email address  <span>*</span></label>
                                 <input type="email" name="email">
                              </p>
                              <p>   
                                 <label>Passwords <span>*</span></label>
                                 <input type="password" name="password">
-                             </p>                         
+                             </p>
+                             <p>   
+                                <label>Confirm Passwords <span>*</span></label>
+                                <input type="password" name="password_confirm">
+                             </p>                             
                             <div class="login_submit">
-                                <button type="submit">Login</button>
+                                <button type="submit">Register</button>
                             </div>
                         </form>
                     </div>    
