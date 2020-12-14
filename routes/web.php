@@ -95,7 +95,13 @@ Route::name('frontend.')->group(function () {
 		Route::get('frontend/register/index', 'Frontend\RegisterController@index')->name('index');
 		Route::get('frontend/register/create', 'Frontend\RegisterController@create')->name('create');
 		Route::post('frontend/register/store', 'Frontend\RegisterController@store')->name('store');
-	});		
+	});	
+	Route::name('product.')->group(function () {
+		Route::get('frontend/product/show/{id}', 'Frontend\ProductController@show')->name('show');
+	});
+	Route::name('subscriber.')->group(function () {
+		Route::post('frontend/subscriber/store', 'Frontend\SubscriberController@store')->name('store');
+	});
 });
 
 Route::name('admin.')->group(function () {

@@ -33,7 +33,13 @@
                                             <td> {{ $value->payment_method->payment_method_name }}</td>
                                             <td> Rp. {{ number_format($value->total_price, 2, ',', '.') }}</td>
                                             <td> Rp. {{ number_format($value->total_voucher, 2, ',', '.') }}</td>
-                                            <td> {{ $value->status }}</td>
+                                            <td> 
+                                                <?php if ($value->status == 2) {
+                                                    echo "Order Created";
+                                                }elseif ($value->status == 3) {
+                                                    echo "Order Completed";
+                                                } ?>
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

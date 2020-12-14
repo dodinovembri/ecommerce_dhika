@@ -82,8 +82,8 @@
 										<article class="single_product">
 											<figure>
 												<div class="product_thumb">
-													<a class="primary_img" href="{{ url('frontend/product/detail', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt="" style="height: 150px"></a>
-													<a class="secondary_img" href="{{ url('frontend/product/detail', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_sub_image }}" alt="" style="height: 150px"></a>
+													<a class="primary_img" href="{{ url('frontend/product/show', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt="" style="height: 150px"></a>
+													<a class="secondary_img" href="{{ url('frontend/product/show', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_sub_image }}" alt="" style="height: 150px"></a>
 													<div class="label_product">
 														<span class="label_sale">{{ $value->badge_text }}</span>
 													</div>
@@ -95,7 +95,7 @@
 													</div>
 												</div>
 												<figcaption class="product_content">
-													<h4 class="product_name"><a href="{{ url('frontend/product/detail', $value->product->id) }}">{{ $value->product->product_name }}</a></h4>
+													<h4 class="product_name"><a href="{{ url('frontend/product/show', $value->product->id) }}">{{ $value->product->product_name }}</a></h4>
 													<p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
 													<div class="price_box"> 
 														<span class="current_price">Rp. {{  number_format($value->new_price, 0, ',', '.') }}</span>
@@ -153,8 +153,8 @@
 							<article class="single_product">
 								<figure>
 									<div class="product_thumb">
-										<a class="primary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt="" style="height: 150px"></a>
-										<a class="secondary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_sub_image }}" alt="" style="height: 150px"></a>
+										<a class="primary_img" href="{{ url('frontend/product/show', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt="" style="height: 150px"></a>
+										<a class="secondary_img" href="{{ url('frontend/product/show', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_sub_image }}" alt="" style="height: 150px"></a>
 										<div class="label_product">
 											<span class="label_sale">{{ $value->badge_text }}</span>
 											<span class="label_new">{{ $value->badge_sub_text }}</span>
@@ -170,7 +170,7 @@
 										</div>
 									</div>
 									<figcaption class="product_content">
-										<h4 class="product_name"><a href="product-details.html">{{ $value->product->product_name }}</a></h4>
+										<h4 class="product_name"><a href="{{ url('frontend/product/show', $value->product->id) }}">{{ $value->product->product_name }}</a></h4>
 										<p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
 										<div class="price_box"> 
 											<span class="current_price">Rp. {{  number_format($value->new_price, 0, ',', '.') }}</span>
@@ -208,11 +208,11 @@
 								<article class="single_product">
 									<figure>
 										<div class="product_thumb">
-											<a class="primary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt="" style="height: 100px"></a>
-											<a class="secondary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_sub_image }}" alt="" style="height: 100px"></a>
+											<a class="primary_img" href="{{ url('frontend/product/show', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_image }}" alt="" style="height: 100px"></a>
+											<a class="secondary_img" href="{{ url('frontend/product/show', $value->product->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product->product_sub_image }}" alt="" style="height: 100px"></a>
 										</div>
 										<figcaption class="product_content">
-											<h4 class="product_name"><a href="product-details.html">{{ $value->product->product_name }}</a></h4>
+											<h4 class="product_name"><a href="{{ url('frontend/product/show', $value->product->id) }}">{{ $value->product->product_name }}</a></h4>
 											<p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
 											<div class="action_links">
 												<ul>
@@ -295,11 +295,11 @@
 							<article class="single_product">
 								<figure>
 									<div class="product_thumb">
-										<a class="primary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_image }}" alt="" style="height: 100px"></a>
-										<a class="secondary_img" href="product-details.html"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_sub_image }}" alt="" style="height: 100px"></a>
+										<a class="primary_img" href="{{ url('frontend/product/show', $value->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_image }}" alt="" style="height: 100px"></a>
+										<a class="secondary_img" href="{{ url('frontend/product/show', $value->id) }}"><img src="{{ asset(Storage::url('img/product')) }}/{{ $value->product_sub_image }}" alt="" style="height: 100px"></a>
 									</div>
 									<figcaption class="product_content">
-										<h4 class="product_name"><a href="product-details.html">{{ $value->product_name }}</a></h4>
+										<h4 class="product_name"><a href="{{ url('frontend/product/show', $value->id) }}">{{ $value->product_name }}</a></h4>
 										<p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
 										<div class="action_links">
 											<ul>

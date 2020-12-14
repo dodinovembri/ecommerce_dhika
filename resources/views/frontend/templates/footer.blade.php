@@ -21,11 +21,11 @@
 
 							<ul>
 								<li><a href="about.html">About Us</a></li>
-								<li><a href="#">Delivery Information</a></li>
+								{{-- <li><a href="#">Delivery Information</a></li>
 								<li><a href="#"> Privacy Policy</a></li>
 								<li><a href="#"> Terms & Conditions</a></li>
 								<li><a href="contact.html"> Contact Us</a></li>
-								<li><a href="#"> Site Map</a></li>
+								<li><a href="#"> Site Map</a></li> --}}
 							</ul>
 						</div>
 					</div>
@@ -35,11 +35,11 @@
 						<h3>Extras</h3>
 						<div class="footer_menu">
 							<ul>
-								<li><a href="#">Brands</a></li>
+								{{--<li><a href="#">Brands</a></li>
 								<li><a href="#">Gift Certificates</a></li>
 								<li><a href="#">Affiliate</a></li>
 								<li><a href="#">Specials</a></li>
-								<li><a href="#">Returns</a></li>
+								<li><a href="#">Returns</a></li>--}}
 								<li><a href="#"> Order History</a></li>
 							</ul>
 						</div>
@@ -50,9 +50,10 @@
 						<h3>Sign up newsletter</h3>
 						<p class="footer_desc">Get updates by subscribe our weekly newsletter</p>
 						<div class="subscribe_form">
-							<form id="mc-form" class="mc-form footer-newsletter" >
-								<input id="mc-email" type="email" autocomplete="off" placeholder="Enter you email" />
-								<button id="mc-submit">Subscribe</button>
+							<form method="POST" action="{{url('frontend/subscriber/store')}}">
+								@csrf
+								<input id="mc-email" type="email" name="newsletter" autocomplete="off" placeholder="Enter you email" />
+								<button id="mc-submit" type="submit">Subscribe</button>
 							</form>
 							<!-- mailchimp-alerts Start -->
 							<div class="mailchimp-alerts text-centre">
@@ -72,16 +73,17 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6 col-md-7">
 					<div class="copyright_area">
-						<p>Copyright  © 2020  <a href="#">Safira</a>  . All Rights Reserved.Design by  <a href="#">Safira</a></p>
+						<p>Copyright © 2020. All Rights Reserved.</p>
 					</div>
 				</div>    
 				<div class="col-lg-6 col-md-5">    
 					<div class="footer_payment">
 						<ul>
-							<li><a href="#"><img src="{{ asset('frontend/img/icon/paypal1.jpg') }}" alt=""></a></li>
-							<li><a href="#"><img src="{{ asset('frontend/img/icon/paypal2.jpg') }}" alt=""></a></li>
-							<li><a href="#"><img src="{{ asset('frontend/img/icon/paypal3.jpg') }}" alt=""></a></li>
-							<li><a href="#"><img src="{{ asset('frontend/img/icon/paypal4.jpg') }}" alt=""></a></li>
+							<?php 
+								$payment_method = App\Models\PaymentMethodModel::where('status', 1)->get();
+								foreach ($payment_method as $key => $value) { ?>
+								<li><a href="#"><img src="{{ asset(Storage::url('img/payment_method')) }}/{{ $value->payment_method_image }}" alt=""></a></li>
+							<?php } ?>
 						</ul>
 					</div>
 				</div>
