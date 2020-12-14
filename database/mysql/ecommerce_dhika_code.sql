@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2020 at 05:46 PM
+-- Generation Time: Dec 14, 2020 at 01:03 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -95,7 +95,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `total_price`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(17, 1, 23234.00, 1, '2020-12-10 09:40:32', '2020-12-10 09:40:32', 1, NULL);
+(17, 1, 954812.00, 1, '2020-12-10 09:40:32', '2020-12-13 08:48:41', 1, 1),
+(18, 5, 465789.00, 1, '2020-12-13 01:32:06', '2020-12-13 01:32:06', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,7 +124,9 @@ CREATE TABLE `cart_detail` (
 --
 
 INSERT INTO `cart_detail` (`id`, `user_id`, `cart_id`, `product_id`, `qty`, `price`, `subtotal`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(26, 1, 17, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 09:40:32', '2020-12-10 09:40:32', 1, NULL);
+(26, 1, 17, 2, 1, 23234.00, 23234.00, 1, '2020-12-10 09:40:32', '2020-12-13 08:40:14', 1, 1),
+(27, 1, 17, 1, 1, 465789.00, 465789.00, 1, '2020-12-11 09:28:52', '2020-12-13 08:48:41', 1, 1),
+(28, 5, 18, 1, 1, 465789.00, 465789.00, 1, '2020-12-13 01:32:06', '2020-12-13 01:32:06', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -445,8 +448,7 @@ CREATE TABLE `product_category` (
 --
 
 INSERT INTO `product_category` (`id`, `product_category_code`, `product_category_name`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(4, 'ACS', 'Accessories', 1, '2020-11-28 03:08:39', '2020-11-28 03:08:39', NULL, NULL),
-(5, 'ACM', 'Accessories & More', 1, '2020-11-28 03:09:20', '2020-11-28 03:09:20', NULL, NULL);
+(4, 'ACS', 'Accessories', 1, '2020-11-28 03:08:39', '2020-11-28 03:08:39', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -474,7 +476,7 @@ CREATE TABLE `product_deal` (
 --
 
 INSERT INTO `product_deal` (`id`, `product_category_id`, `product_id`, `valid_until`, `new_price`, `badge_text`, `badge_sub_text`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(2, 4, 1, '2020-12-06 00:11:34', 8000.00, 'SALE', 'NEW', 1, '2020-12-05 17:11:34', '2020-12-05 17:11:34', NULL, NULL);
+(2, 4, 1, '2020-12-31 00:11:34', 8000.00, 'SALE', 'NEW', 1, '2020-12-05 17:11:34', '2020-12-05 17:11:34', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -643,6 +645,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1,
+  `role` int(11) NOT NULL DEFAULT 1,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -653,8 +656,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `status`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Dodi Novembri', 'dodinovembri32@gmail.com', '2020-11-26 14:33:57', 1, '$2y$10$0Y6NB/N3U3PKDuRnpzJV8.y1vRryU8XfcKzOYi6eJb7EUJZSfvbYa', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `status`, `role`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dodi Novembri', 'dodinovembri32@gmail.com', '2020-11-26 14:33:57', 1, 1, '$2y$10$0Y6NB/N3U3PKDuRnpzJV8.y1vRryU8XfcKzOYi6eJb7EUJZSfvbYa', NULL, NULL, NULL),
+(2, 'Dodi Novembri', 'dodinovembriA32@gmail.com', NULL, 1, 2, '$2y$10$jSlvM.K3aizGdKukXssNleu7tjl6K2mrvlBfw6K7ySreVxYdlt91O', NULL, '2020-12-12 23:43:42', '2020-12-12 23:43:42'),
+(3, 'Dodi Novembri', 'dodinovembri32@gmail.coms', NULL, 1, 2, '$2y$10$YYUi1XMh2oU4VaNhL2R0kOrcMinW3U5AZ1ANhdIzRNej0olvDufyK', NULL, '2020-12-12 23:49:51', '2020-12-12 23:49:51'),
+(4, 'Dodi Novembri', 'dodinovembri32@gmail.comw', NULL, 1, 2, '$2y$10$HtLi9Q5EKshh2.LZ83leg.tf7M9q087lxMKcXbNwGk/BUkphEMvUu', NULL, '2020-12-12 23:51:16', '2020-12-12 23:51:16'),
+(5, 'dhik', 'dhika@gmail.com', NULL, 1, 2, '$2y$10$gHlDOz3LMNpyd2G4AOdS.u0XboaSvMkhs0H5tO0Mir0UK2FIGJSTm', NULL, '2020-12-13 00:17:44', '2020-12-13 00:17:44');
 
 -- --------------------------------------------------------
 
@@ -698,6 +705,13 @@ CREATE TABLE `wishlist` (
   `created_by` bigint(20) DEFAULT NULL,
   `updated_by` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`id`, `user_id`, `product_id`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(15, 1, 2, 1, '2020-12-13 08:48:29', '2020-12-13 08:48:29', 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -886,13 +900,13 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `cart_detail`
 --
 ALTER TABLE `cart_detail`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `currency`
@@ -1012,7 +1026,7 @@ ALTER TABLE `social_media`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `voucher`
@@ -1024,7 +1038,7 @@ ALTER TABLE `voucher`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
