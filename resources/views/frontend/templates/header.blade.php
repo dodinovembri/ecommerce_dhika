@@ -197,7 +197,7 @@
 								<ul>
 									<li><a href="{{ url('/') }}"> Home</a></li>
 									<li><a href="{{ url('frontend/my_order/index') }}"> My Order</a></li>
-									<li><a href="#"> Contact Us</a></li>
+									<li><a href="{{ url('frontend/about_us/index') }}"> About Us</a></li>
 								</ul>  
 							</nav> 
 						</div>

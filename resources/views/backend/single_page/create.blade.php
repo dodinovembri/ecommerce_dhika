@@ -94,7 +94,7 @@
 								            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> {{ ucfirst($text_name) }}</label>
 								            <input type="file" class="form-control col-xl-8 col-md-7" id="validationCustom0" type="text" name="{{ $text_ori }}" <?php if($is_required == 1) {echo "required";} ?> >
 								        </div> 
-								    <?php } elseif ($text_check == "dat") { ?>
+								    <?php } elseif ($text_check == "dat" || $text_check == "tim") { ?>
 								        <div class="form-group row">
 								            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> {{ ucfirst($text_name) }}</label>
 								            <input type="date" class="form-control col-xl-8 col-md-7" id="validationCustom0" type="text" name="{{ $text_ori }}" <?php if($is_required == 1) {echo "required";} ?> >

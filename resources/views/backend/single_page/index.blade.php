@@ -21,7 +21,7 @@
                             <?php if (isset($create)) { ?>
                                 <a href="{{ url($create) }}"><button type="button" class="btn btn-primary">{{ $text_add }}</button></a><br><br>
                             <?php } ?>
-                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <table id="datatable" class="table table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
                                         <?php foreach ($table_field as $key => $value) {
@@ -52,7 +52,7 @@
                                             <?php for ($i=0; $i < $count; $i++) {
                                                 $clean_string = $arr_field[$i];
                                                 ?>   
-                                                <td>{{ substr($value->$clean_string, 0,50) }}</td>
+                                                <td>{{ substr($value->$clean_string, 0,300) }}</td>
                                             <?php } ?>                                            
                                             <td>
                                                 @include('templates.backend.action')

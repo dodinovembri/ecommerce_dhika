@@ -31,18 +31,18 @@
                             @csrf
                             <p>   
                                 <label>Full Name  <span>*</span></label>
-                                <input type="text" name="name">
+                                <input type="text" name="name" required="">
                              </p>                            <p>   
                                 <label>Email address  <span>*</span></label>
-                                <input type="email" name="email">
+                                <input type="email" name="email" required="">
                              </p>
                              <p>   
                                 <label>Passwords <span>*</span></label>
-                                <input type="password" name="password">
+                                <input type="password" name="password" required="">
                              </p>
                              <p>   
                                 <label>Confirm Passwords <span>*</span></label>
-                                <input type="password" name="password_confirm">
+                                <input type="password" name="password_confirm" required="">
                              </p>                             
                             <div class="login_submit">
                                 <button type="submit">Register</button>

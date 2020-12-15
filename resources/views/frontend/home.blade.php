@@ -38,7 +38,7 @@
 				<div class="col-lg-3 col-md-6">
 					<div class="single_shipping">
 						<div class="shipping_icone">
-							<img src="{{ asset('frontend/img/about') }}/{{ $value->advantage_icon }}" alt="">
+							<img src="{{ asset(Storage::url('img/advantage')) }}/{{ $value->advantage_image }}" alt="">
 						</div>
 						<div class="shipping_content">
 							<h3>{{ $value->advantage_title }}</h3>
