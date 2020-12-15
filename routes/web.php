@@ -102,6 +102,12 @@ Route::name('frontend.')->group(function () {
 	Route::name('subscriber.')->group(function () {
 		Route::post('frontend/subscriber/store', 'Frontend\SubscriberController@store')->name('store');
 	});
+	Route::name('about_us.')->group(function () {
+		Route::get('frontend/about_us/index', 'Frontend\AboutUsController@index')->name('index');
+	});	
+	Route::name('blog.')->group(function () {
+		Route::get('frontend/blog/show/{id}', 'Frontend\BlogController@show')->name('show');
+	});		
 });
 
 Route::name('admin.')->group(function () {

@@ -261,9 +261,9 @@
 									<div class="articles_date">
 										<p>{{ $value->blog_date }} | <a href="#">{{ $value->blog_type }}</a> </p>
 									</div>
-									<h4 class="post_title"><a href="blog-details.html">{{ $value->blog_short_description }}</a></h4>
+									<h4 class="post_title"><a href="{{ url('frontend/blog/show', $value->id) }}">{{ $value->blog_short_description }}</a></h4>
 									<footer class="blog_footer">
-										<a href="blog-details.html">Show more</a>
+										<a href="{{ url('frontend/blog/show', $value->id) }}">Show more</a>
 									</footer>
 								</figcaption>
 							</figure>

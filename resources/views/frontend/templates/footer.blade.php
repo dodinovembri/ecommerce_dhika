@@ -20,7 +20,7 @@
 						<div class="footer_menu">
 
 							<ul>
-								<li><a href="about.html">About Us</a></li>
+								<li><a href="{{ url('frontend/about_us/index') }}">About Us</a></li>
 								{{-- <li><a href="#">Delivery Information</a></li>
 								<li><a href="#"> Privacy Policy</a></li>
 								<li><a href="#"> Terms & Conditions</a></li>
@@ -40,7 +40,7 @@
 								<li><a href="#">Affiliate</a></li>
 								<li><a href="#">Specials</a></li>
 								<li><a href="#">Returns</a></li>--}}
-								<li><a href="#"> Order History</a></li>
+								<li><a href="{{ url('frontend/my_order/index') }}"> Order History</a></li>
 							</ul>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 						<div class="subscribe_form">
 							<form method="POST" action="{{url('frontend/subscriber/store')}}">
 								@csrf
-								<input id="mc-email" type="email" name="newsletter" autocomplete="off" placeholder="Enter you email" />
+								<input id="mc-email" type="email" name="newsletter" autocomplete="off" placeholder="Enter you email" / required="">
 								<button id="mc-submit" type="submit">Subscribe</button>
 							</form>
 							<!-- mailchimp-alerts Start -->

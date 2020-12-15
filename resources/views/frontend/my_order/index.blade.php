@@ -14,7 +14,7 @@
             <div class="checkout_form">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <h3>Order Confirmation</h3> 
+                        <h3>My Orders</h3> 
                         <div class="order_table table-responsive">
                             <table>
                                 <thead>
