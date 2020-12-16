@@ -125,7 +125,7 @@
                                                     <h4 class="product_name"><a href="{{ url('frontend/product/show', $value->id) }}">{{ $value->product_name }}</a></h4>
                                                     <p><a href="#">{{ $value->product_category->product_category_name }}</a></p>
                                                     <div class="price_box"> 
-                                                        <span class="old_price">Rp. {{ number_format($value->price, 0, ',', '.') }}</span>
+                                                        <span class="current_price">Rp. {{ number_format($value->price, 0, ',', '.') }}</span>
                                                     </div>
                                                 </figcaption>
                                             </figure>
