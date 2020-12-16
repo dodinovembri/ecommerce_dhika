@@ -55,6 +55,7 @@
                         <ul class="nav-second-level" aria-expanded="false">
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/languange/index') }}"><i class="ti-control-record"></i>Languange</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/currency/index') }}"><i class="ti-control-record"></i>Currency</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('admin/about_us/index') }}"><i class="ti-control-record"></i>About Us</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/social_media/index') }}"><i class="ti-control-record"></i>Social Media</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/shop_information/index') }}"><i class="ti-control-record"></i>Shop Information</a></li>   
                             <li class="nav-item"><a class="nav-link" href="{{ url('admin/advantage/index') }}"><i class="ti-control-record"></i>Advantage</a></li>                         
