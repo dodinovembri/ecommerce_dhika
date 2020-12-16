@@ -23,7 +23,7 @@ Auth::routes([
 Route::get('/', 'Frontend\FrontendController@index')->name('home');
 Route::get('/frontend', 'Frontend\FrontendController@index')->name('home');
 Route::get('/admin', 'Backend\DashboardController@index')->name('dashboard');
-Route::get('/home', 'Backend\DashboardController@index')->name('dashboard');
+Route::get('/home', 'Backend\DashboardController@index')->name('dashboard')->middleware('checkrole');
 Route::get('/dashboard', 'Backend\DashboardController@index')->name('dashboard');
 
 Route::name('frontend.')->group(function () {

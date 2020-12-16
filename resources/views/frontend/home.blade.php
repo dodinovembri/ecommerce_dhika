@@ -124,7 +124,7 @@
 				<div class="col-lg-6 col-md-6">
 					<div class="single_banner">
 						<div class="banner_thumb">
-							<a href="shop.html"><img src="{{ asset(Storage::url('img/product_banner')) }}/{{ $value->product_banner_image }}" alt=""></a> 
+							<a href="void::"><img src="{{ asset(Storage::url('img/product_banner')) }}/{{ $value->product_banner_image }}" alt=""></a> 
 						</div>
 					</div>
 				</div>			

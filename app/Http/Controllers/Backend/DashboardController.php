@@ -17,7 +17,7 @@ class DashboardController extends Controller
     public $file_storage = "public/img/product";
 
     public function __construct()
-    {        
+    {
         $this->middleware('auth');
     }
 
