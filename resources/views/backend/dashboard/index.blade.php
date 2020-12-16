@@ -31,8 +31,8 @@
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col">
                                                     <p class="text-dark mb-0 font-weight-semibold">Customer Orders</p>
-                                                    <h3 class="m-0"> Active</h3>
-                                                    <p class="mb-0 text-truncate text-muted"><span class="text-success">67</span> Total Customer Orders</p>
+                                                    <h3 class="m-0">{{ $total_order_created }}Processing</h3>
+                                                    <p class="mb-0 text-truncate text-muted"><span class="text-success">{{ $total_order }}</span> Total Customer Orders</p>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 
@@ -44,8 +44,8 @@
                                             <div class="row d-flex justify-content-center">                                                
                                                 <div class="col">
                                                     <p class="text-dark mb-0 font-weight-semibold">Vouchers Active</p>
-                                                    <h3 class="m-0"> Active</h3>
-                                                    <p class="mb-0 text-truncate text-muted"><span class="text-success">20</span> Vouchers hass ben gived </p>
+                                                    <h3 class="m-0">{{ $total_voucher_active }} Active</h3>
+                                                    <p class="mb-0 text-truncate text-muted"><span class="text-success">{{ $total_voucher}}</span> Vouchers hass ben gived </p>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 
@@ -57,8 +57,8 @@
                                             <div class="row d-flex justify-content-center">                                                
                                                 <div class="col">
                                                     <p class="text-dark mb-0 font-weight-semibold">Customers</p>
-                                                    <h3 class="m-0"> Active</h3>
-                                                    <p class="mb-0 text-truncate text-muted"><span class="text-danger"></span> Total of Customer</p>
+                                                    <h3 class="m-0">{{ $total_customer_active }} Active</h3>
+                                                    <p class="mb-0 text-truncate text-muted"><span class="text-danger">{{ $total_customer }}</span> Total of Customer</p>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 
@@ -70,8 +70,8 @@
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col">  
                                                     <p class="text-dark mb-0 font-weight-semibold">Product</p>
-                                                    <h3 class="m-0"> Active</h3>
-                                                    <p class="mb-0 text-truncate text-muted"><span class="text-success">34</span> Total of Product</p>
+                                                    <h3 class="m-0">{{ $total_product_active }} Active</h3>
+                                                    <p class="mb-0 text-truncate text-muted"><span class="text-success">{{ $total_product }}</span> Total of Product</p>
                                                 </div>
                                             </div>
                                         </div><!--end card-body--> 

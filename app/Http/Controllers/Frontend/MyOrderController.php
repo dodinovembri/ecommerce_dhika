@@ -37,7 +37,7 @@ class MyOrderController extends Controller
 
     public function index()
     {
-        $user_id = isset(auth()->user()->id);
+        $user_id = isset(auth()->user()->id) ? auth()->user()->id : '';
         $data['order'] = OrderModel::with('payment_method')->where('user_id', $user_id)->get();
         $data['languange'] = LanguangeModel::where('status', 1)->get();
         $data['currency'] = CurrencyModel::where('status', 1)->get();

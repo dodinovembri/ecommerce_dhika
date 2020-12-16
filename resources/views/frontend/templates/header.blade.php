@@ -67,7 +67,11 @@
 									<ul>
 										<li><a href="{{ url('frontend/register/index') }}">Register</a></li>
 										<li><span>/</span></li>
-										<li><a href="{{ route('login') }}">Login</a></li>
+										<?php if (isset(auth()->user()->id)) { ?>
+											<li><form action="{{ route('logout') }}" method="POST">@csrf<button class="form-control" type="submit">Logout</button></form></li>
+										<?php }else{ ?>
+											<li><a href="{{ route('login') }}">Login</a></li>
+										<?php } ?>
 									</ul>
 								</div>
 								<?php       

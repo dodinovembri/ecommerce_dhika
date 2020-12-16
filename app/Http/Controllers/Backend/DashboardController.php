@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\OrderModel;
+use App\Models\VoucherModel;
+use App\Models\UserModel;
+use App\Models\ProductModel;
 
 class DashboardController extends Controller
 {
@@ -23,7 +27,19 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('backend.dashboard.index');
+        $data['total_order_created'] = OrderModel::where('status', 2)->count();
+        $data['total_order'] = OrderModel::count();
+
+        $data['total_voucher_active'] = VoucherModel::where('status', 1)->count();
+        $data['total_voucher'] = VoucherModel::count();
+
+        $data['total_customer_active'] = UserModel::where('role', 2)->where('status', 1)->count();
+        $data['total_customer'] = UserModel::where('role', 2)->count();
+
+        $data['total_product_active'] = ProductModel::where('status', 1)->count();
+        $data['total_product'] = ProductModel::count();
+
+        return view('backend.dashboard.index', $data);
     }
 
     /**
